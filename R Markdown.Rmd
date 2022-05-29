@@ -56,6 +56,11 @@ library(seqinr)
 
 # 0 Getting data from NCBI
 * Go to [NCBI nucleotide database](https://www.ncbi.nlm.nih.gov/nuccore)
-```{r}
-
-
+* Search for monkeypox
+* GenBank ID is ON563414.2
+  * Relatively long at 197124 bp
+* Should compare an (older) annotated genome with one of these newer genomes. 
+* Danny has kindly put a .txt file containing information on various monkeypoxes and related viruses.
+  * Based on set from virology.com.
+  
+# 1 Load genome sequences
