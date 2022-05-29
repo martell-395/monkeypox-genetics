@@ -11,7 +11,7 @@
 
 
 
-<title>R Notebook</title>
+<title>Monkey Pox Genetics May 2022</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1762,18 +1762,302 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">R Notebook</h1>
+<h1 class="title toc-ignore">Monkey Pox Genetics May 2022</h1>
 
 </div>
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-Notebook. When you execute code within the notebook, the results appear
-beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within
-the chunk or by placing your cursor inside it and pressing
-<em>Ctrl+Shift+Enter</em>.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p><a href="https://www.youtube.com/watch?v=qhLSfx_wpeA">YouTube
+tutorial</a> uploaded by <a href="https://dannyarends.nl/?">Dr. Danny
+Arends</a>.</p>
+<p>Notebook completed by Samantha Martell</p>
+<p>Opened: 29 May 2022</p>
+<p>Final edit:</p>
+<div id="to-do-list" class="section level2">
+<h2>To-do list</h2>
+<ol style="list-style-type: decimal">
+<li>Where do we get our data from? (e.g. USA, Portugal, Belgium)</li>
+<li>Load genome sequences from fasta and NCBI</li>
+<li>Create a blast database</li>
+<li>Load associated proteins from NCBI</li>
+<li>Create a protein model (Levenstein, MSA) -&gt; consensus</li>
+<li>tblastn Consensus to viral genomes database</li>
+<li>Genomic layout of the virus</li>
+</ol>
+</div>
+</div>
+<div id="initialising-the-notebook" class="section level1 tabset">
+<h1 class="tabset">Initialising the notebook</h1>
+<div id="set-working-directory" class="section level2">
+<h2>Set working directory</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgd29ya2luZyBkaXJlY3RvcnlcbnNldHdkKFwiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzXCIpXG5jYXQoZ2V0d2QoKSlcbmBgYCJ9 -->
+<pre class="r"><code># set working directory
+setwd(&quot;C:/Users/samma/Monkeypox-genetics&quot;)
+cat(getwd())</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzXG4ifQ== -->
+<pre><code>C:/Users/samma/Monkeypox-genetics</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="install-packages" class="section level2">
+<h2>Install packages</h2>
+<ul>
+<li>Install packages as required.
+<ul>
+<li><a href="https://bioconductor.org/packages/release/bioc/html/msa.html">Multiple
+Sequence Alignment</a></li>
+</ul></li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKCFyZXF1aXJlKFwiQmlvY01hbmFnZXJcIiwgcXVpZXRseSA9IFRSVUUpKVxuICAgIGluc3RhbGwucGFja2FnZXMoXCJCaW9jTWFuYWdlclwiKVxuXG5CaW9jTWFuYWdlcjo6aW5zdGFsbChcIm1zYVwiKVxuYGBgIn0= -->
+<pre class="r"><code>if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+    install.packages(&quot;BiocManager&quot;)
+
+BiocManager::install(&quot;msa&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="importing-packages" class="section level2">
+<h2>Importing packages</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKCFyZXF1aXJlKFwiQmlvY01hbmFnZXJcIiwgcXVpZXRseSA9IFRSVUUpKVxuICAgIGluc3RhbGwucGFja2FnZXMoXCJCaW9jTWFuYWdlclwiKVxuYGBgIn0= -->
+<pre class="r"><code>if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+    install.packages(&quot;BiocManager&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQmlvY29uZHVjdG9yIHZlcnNpb24gMy4xNCAoQmlvY01hbmFnZXIgMS4zMC4xNiksIFIgNC4xLjMgKDIwMjItMDMtMTApXG5CaW9jb25kdWN0b3IgdmVyc2lvbiAnMy4xNCcgaXMgb3V0LW9mLWRhdGU7IHRoZSBjdXJyZW50IHJlbGVhc2UgdmVyc2lvbiAnMy4xNScgaXMgYXZhaWxhYmxlIHdpdGggUiB2ZXJzaW9uICc0LjInO1xuICBzZWUgaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL2luc3RhbGxcbiJ9 -->
+<pre><code>Bioconductor version 3.14 (BiocManager 1.30.16), R 4.1.3 (2022-03-10)
+Bioconductor version &#39;3.14&#39; is out-of-date; the current release version &#39;3.15&#39; is available with R version &#39;4.2&#39;;
+  see https://bioconductor.org/install</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQmlvY01hbmFnZXI6Omluc3RhbGwoXCJtc2FcIilcbmBgYCJ9 -->
+<pre class="r"><code>BiocManager::install(&quot;msa&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ2dldE9wdGlvbihcInJlcG9zXCIpJyByZXBsYWNlcyBCaW9jb25kdWN0b3Igc3RhbmRhcmQgcmVwb3NpdG9yaWVzLCBzZWUgJz9yZXBvc2l0b3JpZXMnIGZvciBkZXRhaWxzXG5cbnJlcGxhY2VtZW50IHJlcG9zaXRvcmllczpcbiAgICBDUkFOOiBodHRwczovL2NyYW4ucnN0dWRpby5jb20vXG5cbkJpb2NvbmR1Y3RvciB2ZXJzaW9uIDMuMTQgKEJpb2NNYW5hZ2VyIDEuMzAuMTYpLCBSIDQuMS4zICgyMDIyLTAzLTEwKVxuSW5zdGFsbGluZyBwYWNrYWdlKHMpICdtc2EnXG5hbHNvIGluc3RhbGxpbmcgdGhlIGRlcGVuZGVuY2llcyDigJhiaXRvcHPigJksIOKAmHpsaWJiaW9j4oCZLCDigJhSQ3VybOKAmSwg4oCYR2Vub21lSW5mb0RiRGF0YeKAmSwg4oCYWFZlY3RvcuKAmSwg4oCYR2Vub21lSW5mb0Ri4oCZLCDigJhCaW9zdHJpbmdz4oCZLCDigJhCaW9jR2VuZXJpY3PigJksIOKAmElSYW5nZXPigJksIOKAmFM0VmVjdG9yc+KAmVxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL3dpbmRvd3MvY29udHJpYi80LjEvYml0b3BzXzEuMC03LnppcCdcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24vemlwJyBsZW5ndGggNDI1NTcgYnl0ZXMgKDQxIEtCKVxuZG93bmxvYWRlZCA0MSBLQlxuXG50cnlpbmcgVVJMICdodHRwczovL2Jpb2NvbmR1Y3Rvci5vcmcvcGFja2FnZXMvMy4xNC9iaW9jL2Jpbi93aW5kb3dzL2NvbnRyaWIvNC4xL3psaWJiaW9jXzEuNDAuMC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDM2NTk1MSBieXRlcyAoMzU3IEtCKVxuZG93bmxvYWRlZCAzNTcgS0JcblxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9jcmFuLnJzdHVkaW8uY29tL2Jpbi93aW5kb3dzL2NvbnRyaWIvNC4xL1JDdXJsXzEuOTgtMS42LnppcCdcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24vemlwJyBsZW5ndGggMzA3MTQ1MCBieXRlcyAoMi45IE1CKVxuZG93bmxvYWRlZCAyLjkgTUJcblxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzLzMuMTQvYmlvYy9iaW4vd2luZG93cy9jb250cmliLzQuMS9YVmVjdG9yXzAuMzQuMC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDcyNjg2MyBieXRlcyAoNzA5IEtCKVxuZG93bmxvYWRlZCA3MDkgS0JcblxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzLzMuMTQvYmlvYy9iaW4vd2luZG93cy9jb250cmliLzQuMS9HZW5vbWVJbmZvRGJfMS4zMC4xLnppcCdcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24vemlwJyBsZW5ndGggNDE3NDE3MyBieXRlcyAoNC4wIE1CKVxuZG93bmxvYWRlZCA0LjAgTUJcblxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzLzMuMTQvYmlvYy9iaW4vd2luZG93cy9jb250cmliLzQuMS9CaW9zdHJpbmdzXzIuNjIuMC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDE0NjgzOTgxIGJ5dGVzICgxNC4wIE1CKVxuZG93bmxvYWRlZCAxNC4wIE1CXG5cbnRyeWluZyBVUkwgJ2h0dHBzOi8vYmlvY29uZHVjdG9yLm9yZy9wYWNrYWdlcy8zLjE0L2Jpb2MvYmluL3dpbmRvd3MvY29udHJpYi80LjEvQmlvY0dlbmVyaWNzXzAuNDAuMC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDczOTgzNCBieXRlcyAoNzIyIEtCKVxuZG93bmxvYWRlZCA3MjIgS0JcblxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzLzMuMTQvYmlvYy9iaW4vd2luZG93cy9jb250cmliLzQuMS9JUmFuZ2VzXzIuMjguMC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDI3MDk4MjMgYnl0ZXMgKDIuNiBNQilcbmRvd25sb2FkZWQgMi42IE1CXG5cbnRyeWluZyBVUkwgJ2h0dHBzOi8vYmlvY29uZHVjdG9yLm9yZy9wYWNrYWdlcy8zLjE0L2Jpb2MvYmluL3dpbmRvd3MvY29udHJpYi80LjEvUzRWZWN0b3JzXzAuMzIuNC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDI0NjcwNDUgYnl0ZXMgKDIuNCBNQilcbmRvd25sb2FkZWQgMi40IE1CXG5cbnRyeWluZyBVUkwgJ2h0dHBzOi8vYmlvY29uZHVjdG9yLm9yZy9wYWNrYWdlcy8zLjE0L2Jpb2MvYmluL3dpbmRvd3MvY29udHJpYi80LjEvbXNhXzEuMjYuMC56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDMzOTk2NjggYnl0ZXMgKDMuMiBNQilcbmRvd25sb2FkZWQgMy4yIE1CXG4ifQ== -->
+<pre><code>&#39;getOption(&quot;repos&quot;)&#39; replaces Bioconductor standard repositories, see &#39;?repositories&#39; for details
+
+replacement repositories:
+    CRAN: https://cran.rstudio.com/
+
+Bioconductor version 3.14 (BiocManager 1.30.16), R 4.1.3 (2022-03-10)
+Installing package(s) &#39;msa&#39;
+also installing the dependencies ‘bitops’, ‘zlibbioc’, ‘RCurl’, ‘GenomeInfoDbData’, ‘XVector’, ‘GenomeInfoDb’, ‘Biostrings’, ‘BiocGenerics’, ‘IRanges’, ‘S4Vectors’
+
+trying URL &#39;https://cran.rstudio.com/bin/windows/contrib/4.1/bitops_1.0-7.zip&#39;
+Content type &#39;application/zip&#39; length 42557 bytes (41 KB)
+downloaded 41 KB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/zlibbioc_1.40.0.zip&#39;
+Content type &#39;application/zip&#39; length 365951 bytes (357 KB)
+downloaded 357 KB
+
+trying URL &#39;https://cran.rstudio.com/bin/windows/contrib/4.1/RCurl_1.98-1.6.zip&#39;
+Content type &#39;application/zip&#39; length 3071450 bytes (2.9 MB)
+downloaded 2.9 MB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/XVector_0.34.0.zip&#39;
+Content type &#39;application/zip&#39; length 726863 bytes (709 KB)
+downloaded 709 KB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/GenomeInfoDb_1.30.1.zip&#39;
+Content type &#39;application/zip&#39; length 4174173 bytes (4.0 MB)
+downloaded 4.0 MB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/Biostrings_2.62.0.zip&#39;
+Content type &#39;application/zip&#39; length 14683981 bytes (14.0 MB)
+downloaded 14.0 MB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/BiocGenerics_0.40.0.zip&#39;
+Content type &#39;application/zip&#39; length 739834 bytes (722 KB)
+downloaded 722 KB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/IRanges_2.28.0.zip&#39;
+Content type &#39;application/zip&#39; length 2709823 bytes (2.6 MB)
+downloaded 2.6 MB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/S4Vectors_0.32.4.zip&#39;
+Content type &#39;application/zip&#39; length 2467045 bytes (2.4 MB)
+downloaded 2.4 MB
+
+trying URL &#39;https://bioconductor.org/packages/3.14/bioc/bin/windows/contrib/4.1/msa_1.26.0.zip&#39;
+Content type &#39;application/zip&#39; length 3399668 bytes (3.2 MB)
+downloaded 3.2 MB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDigJhiaXRvcHPigJkgc3VjY2Vzc2Z1bGx5IHVucGFja2VkIGFuZCBNRDUgc3VtcyBjaGVja2VkXG5wYWNrYWdlIOKAmHpsaWJiaW9j4oCZIHN1Y2Nlc3NmdWxseSB1bnBhY2tlZCBhbmQgTUQ1IHN1bXMgY2hlY2tlZFxucGFja2FnZSDigJhSQ3VybOKAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbnBhY2thZ2Ug4oCYWFZlY3RvcuKAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbnBhY2thZ2Ug4oCYR2Vub21lSW5mb0Ri4oCZIHN1Y2Nlc3NmdWxseSB1bnBhY2tlZCBhbmQgTUQ1IHN1bXMgY2hlY2tlZFxucGFja2FnZSDigJhCaW9zdHJpbmdz4oCZIHN1Y2Nlc3NmdWxseSB1bnBhY2tlZCBhbmQgTUQ1IHN1bXMgY2hlY2tlZFxucGFja2FnZSDigJhCaW9jR2VuZXJpY3PigJkgc3VjY2Vzc2Z1bGx5IHVucGFja2VkIGFuZCBNRDUgc3VtcyBjaGVja2VkXG5wYWNrYWdlIOKAmElSYW5nZXPigJkgc3VjY2Vzc2Z1bGx5IHVucGFja2VkIGFuZCBNRDUgc3VtcyBjaGVja2VkXG5wYWNrYWdlIOKAmFM0VmVjdG9yc+KAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbnBhY2thZ2Ug4oCYbXNh4oCZIHN1Y2Nlc3NmdWxseSB1bnBhY2tlZCBhbmQgTUQ1IHN1bXMgY2hlY2tlZFxuXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdEM6XFxVc2Vyc1xcc2FtbWFcXEFwcERhdGFcXExvY2FsXFxUZW1wXFxSdG1wTXo2MzF2XFxkb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<pre><code>package ‘bitops’ successfully unpacked and MD5 sums checked
+package ‘zlibbioc’ successfully unpacked and MD5 sums checked
+package ‘RCurl’ successfully unpacked and MD5 sums checked
+package ‘XVector’ successfully unpacked and MD5 sums checked
+package ‘GenomeInfoDb’ successfully unpacked and MD5 sums checked
+package ‘Biostrings’ successfully unpacked and MD5 sums checked
+package ‘BiocGenerics’ successfully unpacked and MD5 sums checked
+package ‘IRanges’ successfully unpacked and MD5 sums checked
+package ‘S4Vectors’ successfully unpacked and MD5 sums checked
+package ‘msa’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\samma\AppData\Local\Temp\RtmpMz631v\downloaded_packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiaW5zdGFsbGluZyB0aGUgc291cmNlIHBhY2thZ2Ug4oCYR2Vub21lSW5mb0RiRGF0YeKAmVxuXG50cnlpbmcgVVJMICdodHRwczovL2Jpb2NvbmR1Y3Rvci5vcmcvcGFja2FnZXMvMy4xNC9kYXRhL2Fubm90YXRpb24vc3JjL2NvbnRyaWIvR2Vub21lSW5mb0RiRGF0YV8xLjIuNy50YXIuZ3onXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3gtZ3ppcCcgbGVuZ3RoIDExMTkzNjc0IGJ5dGVzICgxMC43IE1CKVxuZG93bmxvYWRlZCAxMC43IE1CXG4ifQ== -->
+<pre><code>installing the source package ‘GenomeInfoDbData’
+
+trying URL &#39;https://bioconductor.org/packages/3.14/data/annotation/src/contrib/GenomeInfoDbData_1.2.7.tar.gz&#39;
+Content type &#39;application/x-gzip&#39; length 11193674 bytes (10.7 MB)
+downloaded 10.7 MB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKiBpbnN0YWxsaW5nICpzb3VyY2UqIHBhY2thZ2UgJ0dlbm9tZUluZm9EYkRhdGEnIC4uLlxuKiogdXNpbmcgc3RhZ2VkIGluc3RhbGxhdGlvblxuKiogZGF0YVxuKiogaW5zdFxuKiogaGVscFxuKioqIGluc3RhbGxpbmcgaGVscCBpbmRpY2VzXG4gIGNvbnZlcnRpbmcgaGVscCBmb3IgcGFja2FnZSAnR2Vub21lSW5mb0RiRGF0YSdcbiAgICBmaW5kaW5nIEhUTUwgbGlua3MgLi4uIGRvbmVcbiAgICBHZW5vbWVJbmZvRGJEYXRhLXBhY2thZ2UgICAgICAgICAgICAgICAgaHRtbCAgXG4qKiBidWlsZGluZyBwYWNrYWdlIGluZGljZXNcbioqIHRlc3RpbmcgaWYgaW5zdGFsbGVkIHBhY2thZ2UgY2FuIGJlIGxvYWRlZCBmcm9tIHRlbXBvcmFyeSBsb2NhdGlvblxuKioqIGFyY2ggLSBpMzg2XG4qKiogYXJjaCAtIHg2NFxuKiogdGVzdGluZyBpZiBpbnN0YWxsZWQgcGFja2FnZSBjYW4gYmUgbG9hZGVkIGZyb20gZmluYWwgbG9jYXRpb25cbioqKiBhcmNoIC0gaTM4NlxuKioqIGFyY2ggLSB4NjRcbioqIHRlc3RpbmcgaWYgaW5zdGFsbGVkIHBhY2thZ2Uga2VlcHMgYSByZWNvcmQgb2YgdGVtcG9yYXJ5IGluc3RhbGxhdGlvbiBwYXRoXG4qIERPTkUgKEdlbm9tZUluZm9EYkRhdGEpXG4ifQ== -->
+<pre><code>* installing *source* package &#39;GenomeInfoDbData&#39; ...
+** using staged installation
+** data
+** inst
+** help
+*** installing help indices
+  converting help for package &#39;GenomeInfoDbData&#39;
+    finding HTML links ... done
+    GenomeInfoDbData-package                html  
+** building package indices
+** testing if installed package can be loaded from temporary location
+*** arch - i386
+*** arch - x64
+** testing if installed package can be loaded from final location
+*** arch - i386
+*** arch - x64
+** testing if installed package keeps a record of temporary installation path
+* DONE (GenomeInfoDbData)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBzb3VyY2UgcGFja2FnZXMgYXJlIGluXG5cdOKAmEM6XFxVc2Vyc1xcc2FtbWFcXEFwcERhdGFcXExvY2FsXFxUZW1wXFxSdG1wTXo2MzF2XFxkb3dubG9hZGVkX3BhY2thZ2Vz4oCZXG5JbnN0YWxsYXRpb24gcGF0aHMgbm90IHdyaXRlYWJsZSwgdW5hYmxlIHRvIHVwZGF0ZSBwYWNrYWdlc1xuICBwYXRoOiBDOi9Qcm9ncmFtIEZpbGVzL1IvUi00LjEuMy9saWJyYXJ5XG4gIHBhY2thZ2VzOlxuICAgIGNsdXN0ZXIsIE1BU1MsIE1hdHJpeCwgbWdjdiwgbmxtZSwgc3Vydml2YWxcbk9sZCBwYWNrYWdlczogJ0Jpb2NNYW5hZ2VyJywgJ2xhbmd1YWdlc2VydmVyJywgJ29wZW5zc2wnLCAndGlueXRleCcsICd4ZnVuJ1xuIn0= -->
+<pre><code>
+The downloaded source packages are in
+    ‘C:\Users\samma\AppData\Local\Temp\RtmpMz631v\downloaded_packages’
+Installation paths not writeable, unable to update packages
+  path: C:/Program Files/R/R-4.1.3/library
+  packages:
+    cluster, MASS, Matrix, mgcv, nlme, survival
+Old packages: &#39;BiocManager&#39;, &#39;languageserver&#39;, &#39;openssl&#39;, &#39;tinytex&#39;, &#39;xfun&#39;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVXBkYXRlIGFsbC9zb21lL25vbmU/IFthL3Mvbl06IFxuIn0= -->
+<pre><code>Update all/some/none? [a/s/n]: </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYVxuYGBgIn0= -->
+<pre class="r"><code>a</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogcGFja2FnZSDigJhCaW9jTWFuYWdlcuKAmSBpcyBpbiB1c2UgYW5kIHdpbGwgbm90IGJlIGluc3RhbGxlZFxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9jcmFuLnJzdHVkaW8uY29tL2Jpbi93aW5kb3dzL2NvbnRyaWIvNC4xL2xhbmd1YWdlc2VydmVyXzAuMy4xMy56aXAnXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3ppcCcgbGVuZ3RoIDgxNjk2NSBieXRlcyAoNzk3IEtCKVxuZG93bmxvYWRlZCA3OTcgS0JcblxudHJ5aW5nIFVSTCAnaHR0cHM6Ly9jcmFuLnJzdHVkaW8uY29tL2Jpbi93aW5kb3dzL2NvbnRyaWIvNC4xL29wZW5zc2xfMi4wLjIuemlwJ1xuQ29udGVudCB0eXBlICdhcHBsaWNhdGlvbi96aXAnIGxlbmd0aCAzOTk3NzIyIGJ5dGVzICgzLjggTUIpXG5kb3dubG9hZGVkIDMuOCBNQlxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL3dpbmRvd3MvY29udHJpYi80LjEvdGlueXRleF8wLjM5LnppcCdcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24vemlwJyBsZW5ndGggMTM0MTA4IGJ5dGVzICgxMzAgS0IpXG5kb3dubG9hZGVkIDEzMCBLQlxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL3dpbmRvd3MvY29udHJpYi80LjEveGZ1bl8wLjMxLnppcCdcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24vemlwJyBsZW5ndGggNDA0MTQyIGJ5dGVzICgzOTQgS0IpXG5kb3dubG9hZGVkIDM5NCBLQlxuIn0= -->
+<pre><code>Warning: package ‘BiocManager’ is in use and will not be installed
+trying URL &#39;https://cran.rstudio.com/bin/windows/contrib/4.1/languageserver_0.3.13.zip&#39;
+Content type &#39;application/zip&#39; length 816965 bytes (797 KB)
+downloaded 797 KB
+
+trying URL &#39;https://cran.rstudio.com/bin/windows/contrib/4.1/openssl_2.0.2.zip&#39;
+Content type &#39;application/zip&#39; length 3997722 bytes (3.8 MB)
+downloaded 3.8 MB
+
+trying URL &#39;https://cran.rstudio.com/bin/windows/contrib/4.1/tinytex_0.39.zip&#39;
+Content type &#39;application/zip&#39; length 134108 bytes (130 KB)
+downloaded 130 KB
+
+trying URL &#39;https://cran.rstudio.com/bin/windows/contrib/4.1/xfun_0.31.zip&#39;
+Content type &#39;application/zip&#39; length 404142 bytes (394 KB)
+downloaded 394 KB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDigJhsYW5ndWFnZXNlcnZlcuKAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbnBhY2thZ2Ug4oCYb3BlbnNzbOKAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbnBhY2thZ2Ug4oCYdGlueXRleOKAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbnBhY2thZ2Ug4oCYeGZ1buKAmSBzdWNjZXNzZnVsbHkgdW5wYWNrZWQgYW5kIE1ENSBzdW1zIGNoZWNrZWRcbiJ9 -->
+<pre><code>package ‘languageserver’ successfully unpacked and MD5 sums checked
+package ‘openssl’ successfully unpacked and MD5 sums checked
+package ‘tinytex’ successfully unpacked and MD5 sums checked
+package ‘xfun’ successfully unpacked and MD5 sums checked</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogY2Fubm90IHJlbW92ZSBwcmlvciBpbnN0YWxsYXRpb24gb2YgcGFja2FnZSDigJh4ZnVu4oCZXG5XYXJuaW5nIGluIGZpbGUuY29weShzYXZlZGNvcHksIGxpYiwgcmVjdXJzaXZlID0gVFJVRSkgOlxuICBwcm9ibGVtIGNvcHlpbmcgQzpcXFVzZXJzXFxzYW1tYVxcUlxcd2luLWxpYnJhcnlcXDQuMVxcMDBMT0NLXFx4ZnVuXFxsaWJzXFx4NjRcXHhmdW4uZGxsIHRvIEM6XFxVc2Vyc1xcc2FtbWFcXFJcXHdpbi1saWJyYXJ5XFw0LjFcXHhmdW5cXGxpYnNcXHg2NFxceGZ1bi5kbGw6IFBlcm1pc3Npb24gZGVuaWVkXG5XYXJuaW5nOiByZXN0b3JlZCDigJh4ZnVu4oCZXG4ifQ== -->
+<pre><code>Warning: cannot remove prior installation of package ‘xfun’
+Warning in file.copy(savedcopy, lib, recursive = TRUE) :
+  problem copying C:\Users\samma\R\win-library\4.1\00LOCK\xfun\libs\x64\xfun.dll to C:\Users\samma\R\win-library\4.1\xfun\libs\x64\xfun.dll: Permission denied
+Warning: restored ‘xfun’</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdEM6XFxVc2Vyc1xcc2FtbWFcXEFwcERhdGFcXExvY2FsXFxUZW1wXFxSdG1wTXo2MzF2XFxkb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<pre><code>
+The downloaded binary packages are in
+    C:\Users\samma\AppData\Local\Temp\RtmpMz631v\downloaded_packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtc2EpXG5gYGAifQ== -->
+<pre class="r"><code>library(msa)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBCaW9zdHJpbmdzXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IEJpb2NHZW5lcmljc1xuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYQmlvY0dlbmVyaWNz4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTpzdGF0c+KAmTpcblxuICAgIElRUiwgbWFkLCBzZCwgdmFyLCB4dGFic1xuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGFueUR1cGxpY2F0ZWQsIGFwcGVuZCwgYXMuZGF0YS5mcmFtZSwgYmFzZW5hbWUsIGNiaW5kLCBjb2xuYW1lcywgZGlybmFtZSwgZG8uY2FsbCwgZHVwbGljYXRlZCxcbiAgICBldmFsLCBldmFscSwgRmlsdGVyLCBGaW5kLCBnZXQsIGdyZXAsIGdyZXBsLCBpbnRlcnNlY3QsIGlzLnVuc29ydGVkLCBsYXBwbHksIE1hcCwgbWFwcGx5LCBtYXRjaCxcbiAgICBtZ2V0LCBvcmRlciwgcGFzdGUsIHBtYXgsIHBtYXguaW50LCBwbWluLCBwbWluLmludCwgUG9zaXRpb24sIHJhbmssIHJiaW5kLCBSZWR1Y2UsIHJvd25hbWVzLFxuICAgIHNhcHBseSwgc2V0ZGlmZiwgc29ydCwgdGFibGUsIHRhcHBseSwgdW5pb24sIHVuaXF1ZSwgdW5zcGxpdCwgd2hpY2gubWF4LCB3aGljaC5taW5cblxuTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBTNFZlY3RvcnNcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogc3RhdHM0XG5cbkF0dGFjaGluZyBwYWNrYWdlOiDigJhTNFZlY3RvcnPigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBleHBhbmQuZ3JpZCwgSSwgdW5uYW1lXG5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogSVJhbmdlc1xuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYSVJhbmdlc+KAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmdyRGV2aWNlc+KAmTpcblxuICAgIHdpbmRvd3NcblxuTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBYVmVjdG9yXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IEdlbm9tZUluZm9EYlxuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYQmlvc3RyaW5nc+KAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBzdHJzcGxpdFxuXG5cbkF0dGFjaGluZyBwYWNrYWdlOiDigJhtc2HigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3QgaXMgbWFza2VkIGZyb20g4oCYcGFja2FnZTpCaW9jTWFuYWdlcuKAmTpcblxuICAgIHZlcnNpb25cbiJ9 -->
+<pre><code>Loading required package: Biostrings
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames, dirname, do.call, duplicated,
+    eval, evalq, Filter, Find, get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply, match,
+    mget, order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce, rownames,
+    sapply, setdiff, sort, table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: ‘IRanges’
+
+The following object is masked from ‘package:grDevices’:
+
+    windows
+
+Loading required package: XVector
+Loading required package: GenomeInfoDb
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+
+Attaching package: ‘msa’
+
+The following object is masked from ‘package:BiocManager’:
+
+    version</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSQ29sb3JCcmV3ZXIpXG5saWJyYXJ5KHJlbnRyZXopXG5saWJyYXJ5KHN0cmluZ2Rpc3QpXG5saWJyYXJ5KHNlcWlucilcbmBgYCJ9 -->
+<pre class="r"><code>library(RColorBrewer)
+library(rentrez)
+library(stringdist)
+library(seqinr)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYc2VxaW5y4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6Qmlvc3RyaW5nc+KAmTpcblxuICAgIHRyYW5zbGF0ZVxuIn0= -->
+<pre><code>
+Attaching package: ‘seqinr’
+
+The following object is masked from ‘package:Biostrings’:
+
+    translate</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="testing" class="section level1">
+<h1>Testing</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
@@ -1794,8 +2078,9 @@ editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not
 run any R code chunks. Instead, the output of the chunk when it was last
 run in the editor is displayed.</p>
 <!-- rnb-text-end -->
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQpwbG90KGNhcnMpDQpgYGANCg0KQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkN0cmwrQWx0K0kqLg0KDQpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4NCg0KVGhlIHByZXZpZXcgc2hvd3MgeW91IGEgcmVuZGVyZWQgSFRNTCBjb3B5IG9mIHRoZSBjb250ZW50cyBvZiB0aGUgZWRpdG9yLiBDb25zZXF1ZW50bHksIHVubGlrZSAqS25pdCosICpQcmV2aWV3KiBkb2VzIG5vdCBydW4gYW55IFIgY29kZSBjaHVua3MuIEluc3RlYWQsIHRoZSBvdXRwdXQgb2YgdGhlIGNodW5rIHdoZW4gaXQgd2FzIGxhc3QgcnVuIGluIHRoZSBlZGl0b3IgaXMgZGlzcGxheWVkLg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1vbmtleSBQb3ggR2VuZXRpY3MgTWF5IDIwMjIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KIyBJbnRyb2R1Y3Rpb24NCltZb3VUdWJlIHR1dG9yaWFsXShodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXFoTFNmeF93cGVBKSB1cGxvYWRlZCBieSBbRHIuIERhbm55IEFyZW5kc10oaHR0cHM6Ly9kYW5ueWFyZW5kcy5ubC8/KS4NCg0KTm90ZWJvb2sgY29tcGxldGVkIGJ5IFNhbWFudGhhIE1hcnRlbGwNCg0KT3BlbmVkOiAyOSBNYXkgMjAyMg0KDQpGaW5hbCBlZGl0OiANCg0KIyMgVG8tZG8gbGlzdA0KMS4gV2hlcmUgZG8gd2UgZ2V0IG91ciBkYXRhIGZyb20/IChlLmcuIFVTQSwgUG9ydHVnYWwsIEJlbGdpdW0pDQoyLiBMb2FkIGdlbm9tZSBzZXF1ZW5jZXMgZnJvbSBmYXN0YSBhbmQgTkNCSQ0KMy4gQ3JlYXRlIGEgYmxhc3QgZGF0YWJhc2UNCjQuIExvYWQgYXNzb2NpYXRlZCBwcm90ZWlucyBmcm9tIE5DQkkNCjUuIENyZWF0ZSBhIHByb3RlaW4gbW9kZWwgKExldmVuc3RlaW4sIE1TQSkgLT4gY29uc2Vuc3VzDQo2LiB0Ymxhc3RuIENvbnNlbnN1cyB0byB2aXJhbCBnZW5vbWVzIGRhdGFiYXNlDQo3LiBHZW5vbWljIGxheW91dCBvZiB0aGUgdmlydXMNCg0KIyBJbml0aWFsaXNpbmcgdGhlIG5vdGVib29rIHsudGFic2V0fQ0KIyMgU2V0IHdvcmtpbmcgZGlyZWN0b3J5DQpgYGB7cn0NCiMgc2V0IHdvcmtpbmcgZGlyZWN0b3J5DQpzZXR3ZCgiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzIikNCmNhdChnZXR3ZCgpKQ0KYGBgDQojIyBJbnN0YWxsIHBhY2thZ2VzDQoqIEluc3RhbGwgcGFja2FnZXMgYXMgcmVxdWlyZWQuIA0KICAqIFtNdWx0aXBsZSBTZXF1ZW5jZSBBbGlnbm1lbnRdKGh0dHBzOi8vYmlvY29uZHVjdG9yLm9yZy9wYWNrYWdlcy9yZWxlYXNlL2Jpb2MvaHRtbC9tc2EuaHRtbCkNCmBgYHtyfQ0KaWYgKCFyZXF1aXJlKCJCaW9jTWFuYWdlciIsIHF1aWV0bHkgPSBUUlVFKSkNCiAgICBpbnN0YWxsLnBhY2thZ2VzKCJCaW9jTWFuYWdlciIpDQoNCkJpb2NNYW5hZ2VyOjppbnN0YWxsKCJtc2EiKQ0KYGBgDQoNCg0KIyMgSW1wb3J0aW5nIHBhY2thZ2VzDQpgYGB7cn0NCmlmICghcmVxdWlyZSgiQmlvY01hbmFnZXIiLCBxdWlldGx5ID0gVFJVRSkpDQogICAgaW5zdGFsbC5wYWNrYWdlcygiQmlvY01hbmFnZXIiKQ0KDQpCaW9jTWFuYWdlcjo6aW5zdGFsbCgibXNhIikNCmxpYnJhcnkobXNhKQ0KbGlicmFyeShSQ29sb3JCcmV3ZXIpDQpsaWJyYXJ5KHJlbnRyZXopDQpsaWJyYXJ5KHN0cmluZ2Rpc3QpDQpsaWJyYXJ5KHNlcWlucikNCmBgYA0KDQojIFRlc3RpbmcNCmBgYHtyfQ0KcGxvdChjYXJzKQ0KYGBgDQoNCkFkZCBhIG5ldyBjaHVuayBieSBjbGlja2luZyB0aGUgKkluc2VydCBDaHVuayogYnV0dG9uIG9uIHRoZSB0b29sYmFyIG9yIGJ5IHByZXNzaW5nICpDdHJsK0FsdCtJKi4NCg0KV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQoNClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4NCg==</div>
 
 
 

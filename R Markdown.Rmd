@@ -1,12 +1,57 @@
 ---
-title: "R Notebook"
+title: "Monkey Pox Genetics May 2022"
 output: html_notebook
 ---
+# Introduction
+[YouTube tutorial](https://www.youtube.com/watch?v=qhLSfx_wpeA) uploaded by [Dr. Danny Arends](https://dannyarends.nl/?).
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+Notebook completed by Samantha Martell
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+Opened: 29 May 2022
 
+Final edit: 
+
+## To-do list
+1. Where do we get our data from? (e.g. USA, Portugal, Belgium)
+2. Load genome sequences from fasta and NCBI
+3. Create a blast database
+4. Load associated proteins from NCBI
+5. Create a protein model (Levenstein, MSA) -> consensus
+6. tblastn Consensus to viral genomes database
+7. Genomic layout of the virus
+
+# Initialising the notebook {.tabset}
+## Set working directory
+```{r}
+# set working directory
+setwd("C:/Users/samma/Monkeypox-genetics")
+cat(getwd())
+```
+## Install packages
+* Install packages as required. 
+  * [Multiple Sequence Alignment](https://bioconductor.org/packages/release/bioc/html/msa.html)
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("msa")
+```
+
+
+## Importing packages
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("msa")
+library(msa)
+library(RColorBrewer)
+library(rentrez)
+library(stringdist)
+library(seqinr)
+```
+
+# Testing
 ```{r}
 plot(cars)
 ```
