@@ -1804,9 +1804,9 @@ each position (<a href="https://en.wikipedia.org/wiki/Consensus_sequence">source
 <h2>Set working directory</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgd29ya2luZyBkaXJlY3RvcnlcbnNldHdkKFwiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzXCIpXG5jYXQoZ2V0d2QoKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgd29ya2luZyBkaXJlY3RvcnlcbnNldHdkKFwiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzL1wiKVxuY2F0KGdldHdkKCkpXG5gYGAifQ== -->
 <pre class="r"><code># set working directory
-setwd(&quot;C:/Users/samma/Monkeypox-genetics&quot;)
+setwd(&quot;C:/Users/samma/Monkeypox-genetics/&quot;)
 cat(getwd())</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzXG4ifQ== -->
@@ -2083,13 +2083,52 @@ monkeypoxes and related viruses.
 <li>Based on set from virology.com.</li>
 </ul></li>
 </ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBnZXR3ZCgpXG5zb3VyY2VJRHMgPC0gcmVhZC5jc3YoZmlsZSA9IFwiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzL2RhdGEvbW9ua2V5cG94X2Fubm90YXRpb24udHh0XCIsIHNlcCA9IFwiXFx0XCIsIGhlYWRlciA9IFRSVUUsIHJvdy5uYW1lcyA9IDEpXG5cbiMgXG5oZWFkKHNvdXJjZUlEcylcbmBgYCJ9 -->
+<pre class="r"><code># getwd()
+sourceIDs &lt;- read.csv(file = &quot;C:/Users/samma/Monkeypox-genetics/data/monkeypox_annotation.txt&quot;, sep = &quot;\t&quot;, header = TRUE, row.names = 1)
+
+# 
+head(sourceIDs)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Nywic3VtbWFyeSI6W119LCJyZGYiOiJINHNJQUFBQUFBQUFCcjFVMjA3Q01CZ3VNSmpNUTBoOGdiMkFDenNBY29sb05CTEFDRWE5ckZpeEVkcWw3VkJlWHUyZ3hWR0Nlc1ZGMCsvNytyZi9jYnM5ZndpZEJ3Y0FVQUJXcmdBS1JRbEJxWDNqQjdVQUFDc3ZXUTVZb0p6dUg5THFXQUpicmtwcXBnNE8rMHk4MHBoK3pEQkwrTzdFOVNqMnVwUzhvWGtRL0pPRGpYMzl2WU1yT3FVdWh6RkdoTzlFTTZyYW96SmJ0elZGREkvZ2IyTHBJbUUwUm9ydDN5TXUzTlpMeHVBdmFkMXg0VzdRMm9UNXU0NUNkZytQcFh2NEJ6V3k2VUxPNGVnMTRVZ0kvcXQ0eVJBVTdobkRBbUt5cFZrSHQzaUdHSGNIQWdwa3VMS0M2cXJKVzdIZmJKeG1zUDlqNHplTXVTOFNPRVc2TzdhZXBqNGJRNEw1VlBOQjh1UU41NnN1V0ZlVUM0WExiVW9FSm9ob3dXN1RoQWcyMXc2V1dhaUxqd2d5STRJeW8rOWVOZ3FkcXRQdjFlcGg1RWVldjZIb1ZKM3VzRmtOd3loajA3bXVSMEhkcjIwb2pSK2wyMm1jaHRXZ0tSV2pIS09KN0pvS1JJdk9NeFRRZTJFeVJzaytqU3MyalFXbTZZVG4wLzlIMGJpY1k0WlFTVWlhN2ZPSkhBM3lkdUpIcVlmRitYSWRxcjJVd2ZiU1ovNUx2VlhVSHdjaVkxbDdIZndFUHFHSklrZXlySXVxZWpIRHErWTRVdVdlb0FKcU8yZEVKMXBaSkFjK3Z3SGFRekFyT0FVQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Organism"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Sub.Type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Host"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Continent"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Country"],"name":[5],"type":["chr"],"align":["left"]},{"label":["State"],"name":[6],"type":["chr"],"align":["left"]},{"label":["Year"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"Orthopoxvirus","2":"Monkey22","3":"Homo sapiens","4":"North America","5":"USA","6":"Massachusetts","7":"2022","_rn_":"ON563414.1"},{"1":"Orthopoxvirus","2":"Monkey22","3":"Homo sapiens","4":"North America","5":"USA","6":"Massachusetts","7":"2022","_rn_":"ON563414.2"},{"1":"Orthopoxvirus","2":"Monkey22","3":"Homo sapiens","4":"Europe","5":"UK","6":"Great Britain","7":"2022","_rn_":"MT903344.1"},{"1":"Orthopoxvirus","2":"","3":"Homo sapiens","4":"West Africa","5":"Nigeria","6":"","7":"1978","_rn_":"KJ642615.1"},{"1":"Orthopoxvirus","2":"","3":"Homo sapiens","4":"West Africa","5":"Nigeria","6":"","7":"1971","_rn_":"KJ642617.1"},{"1":"Orthopoxvirus","2":"","3":"Homo sapiens","4":"West Africa","5":"Nigeria","6":"Rivers State","7":"2017","_rn_":"MK783029.1"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Check the structure of the new dataframe.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKHNvdXJjZUlEcylcbmBgYCJ9 -->
+<pre class="r"><code>str(sourceIDs)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0NzUgb2JzLiBvZiAgNyB2YXJpYWJsZXM6XG4gJCBPcmdhbmlzbSA6IGNociAgXCJPcnRob3BveHZpcnVzXCIgXCJPcnRob3BveHZpcnVzXCIgXCJPcnRob3BveHZpcnVzXCIgXCJPcnRob3BveHZpcnVzXCIgLi4uXG4gJCBTdWIuVHlwZSA6IGNociAgXCJNb25rZXkyMlwiIFwiTW9ua2V5MjJcIiBcIk1vbmtleTIyXCIgXCJcIiAuLi5cbiAkIEhvc3QgICAgIDogY2hyICBcIkhvbW8gc2FwaWVuc1wiIFwiSG9tbyBzYXBpZW5zXCIgXCJIb21vIHNhcGllbnNcIiBcIkhvbW8gc2FwaWVuc1wiIC4uLlxuICQgQ29udGluZW50OiBjaHIgIFwiTm9ydGggQW1lcmljYVwiIFwiTm9ydGggQW1lcmljYVwiIFwiRXVyb3BlXCIgXCJXZXN0IEFmcmljYVwiIC4uLlxuICQgQ291bnRyeSAgOiBjaHIgIFwiVVNBXCIgXCJVU0FcIiBcIlVLXCIgXCJOaWdlcmlhXCIgLi4uXG4gJCBTdGF0ZSAgICA6IGNociAgXCJNYXNzYWNodXNldHRzXCIgXCJNYXNzYWNodXNldHRzXCIgXCJHcmVhdCBCcml0YWluXCIgXCJcIiAuLi5cbiAkIFllYXIgICAgIDogY2hyICBcIjIwMjJcIiBcIjIwMjJcIiBcIjIwMjJcIiBcIjE5NzhcIiAuLi5cbiJ9 -->
+<pre><code>&#39;data.frame&#39;:   75 obs. of  7 variables:
+ $ Organism : chr  &quot;Orthopoxvirus&quot; &quot;Orthopoxvirus&quot; &quot;Orthopoxvirus&quot; &quot;Orthopoxvirus&quot; ...
+ $ Sub.Type : chr  &quot;Monkey22&quot; &quot;Monkey22&quot; &quot;Monkey22&quot; &quot;&quot; ...
+ $ Host     : chr  &quot;Homo sapiens&quot; &quot;Homo sapiens&quot; &quot;Homo sapiens&quot; &quot;Homo sapiens&quot; ...
+ $ Continent: chr  &quot;North America&quot; &quot;North America&quot; &quot;Europe&quot; &quot;West Africa&quot; ...
+ $ Country  : chr  &quot;USA&quot; &quot;USA&quot; &quot;UK&quot; &quot;Nigeria&quot; ...
+ $ State    : chr  &quot;Massachusetts&quot; &quot;Massachusetts&quot; &quot;Great Britain&quot; &quot;&quot; ...
+ $ Year     : chr  &quot;2022&quot; &quot;2022&quot; &quot;2022&quot; &quot;1978&quot; ...</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 </div>
 <div id="load-genome-sequences" class="section level1">
 <h1>1 Load genome sequences</h1>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1vbmtleSBQb3ggR2VuZXRpY3MgTWF5IDIwMjIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KIyBJbnRyb2R1Y3Rpb24NCltZb3VUdWJlIHR1dG9yaWFsXShodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXFoTFNmeF93cGVBKSB1cGxvYWRlZCBieSBbRHIuIERhbm55IEFyZW5kc10oaHR0cHM6Ly9kYW5ueWFyZW5kcy5ubC8/KS4NCg0KTm90ZWJvb2sgY29tcGxldGVkIGJ5IFNhbWFudGhhIE1hcnRlbGwNCg0KT3BlbmVkOiAyOSBNYXkgMjAyMg0KDQpGaW5hbCBlZGl0OiANCg0KIyMgVG8tZG8gbGlzdA0KMS4gV2hlcmUgZG8gd2UgZ2V0IG91ciBkYXRhIGZyb20/IChlLmcuIFVTQSwgUG9ydHVnYWwsIEJlbGdpdW0pLiBTb3VyY2UgZnJvbSBOQ0JJLiANCjIuIExvYWQgZ2Vub21lIHNlcXVlbmNlcyBmcm9tIGZhc3RhIGFuZCBOQ0JJLg0KMy4gQ3JlYXRlIGEgYmxhc3QgZGF0YWJhc2UuDQo0LiBMb2FkIGFzc29jaWF0ZWQgcHJvdGVpbnMgZnJvbSBOQ0JJLg0KNS4gQ3JlYXRlIGEgcHJvdGVpbiBtb2RlbCAoTGV2ZW5zdGVpbiwgTVNBKSAtPiBjb25zZW5zdXMuDQo2LiB0Ymxhc3RuIENvbnNlbnN1cyB0byB2aXJhbCBnZW5vbWVzIGRhdGFiYXNlLg0KNy4gR2Vub21pYyBsYXlvdXQgb2YgdGhlIHZpcnVzLg0KDQojIyMgV2hhdCBpcyBhIGNvbnNlbnN1cyBzZXF1ZW5jZT8NCkEgY29uc2Vuc3VzIHNlcXVlbmNlIGlzIGEgc2VxdWVuY2Ugb2YgRE5BLCBSTkEsIG9yIHByb3RlaW4gdGhhdCByZXByZXNlbnRzIGFsaWduZWQsIHJlbGF0ZWQgc2VxdWVuY2VzLiBUaGUgY29uc2Vuc3VzIHNlcXVlbmNlIG9mIHRoZSByZWxhdGVkIHNlcXVlbmNlcyBjYW4gYmUgZGVmaW5lZCBpbiBkaWZmZXJlbnQgd2F5cywgYnV0IGlzIG5vcm1hbGx5IGRlZmluZWQgYnkgdGhlIG1vc3QgY29tbW9uIG51Y2xlb3RpZGUocykgb3IgYW1pbm8gYWNpZCByZXNpZHVlKHMpIGF0IGVhY2ggcG9zaXRpb24gKFtzb3VyY2VdKGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0NvbnNlbnN1c19zZXF1ZW5jZSkpLg0KDQojIEluaXRpYWxpc2luZyB0aGUgbm90ZWJvb2sgey50YWJzZXR9DQojIyBTZXQgd29ya2luZyBkaXJlY3RvcnkNCmBgYHtyfQ0KIyBzZXQgd29ya2luZyBkaXJlY3RvcnkNCnNldHdkKCJDOi9Vc2Vycy9zYW1tYS9Nb25rZXlwb3gtZ2VuZXRpY3MiKQ0KY2F0KGdldHdkKCkpDQpgYGANCiMjIEluc3RhbGwgcGFja2FnZXMNCiogSW5zdGFsbCBwYWNrYWdlcyBhcyByZXF1aXJlZC4gDQogICogW011bHRpcGxlIFNlcXVlbmNlIEFsaWdubWVudF0oaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzL3JlbGVhc2UvYmlvYy9odG1sL21zYS5odG1sKQ0KYGBge3J9DQppZiAoIXJlcXVpcmUoIkJpb2NNYW5hZ2VyIiwgcXVpZXRseSA9IFRSVUUpKQ0KICAgIGluc3RhbGwucGFja2FnZXMoIkJpb2NNYW5hZ2VyIikNCg0KQmlvY01hbmFnZXI6Omluc3RhbGwoIm1zYSIpDQpgYGANCg0KDQojIyBJbXBvcnRpbmcgcGFja2FnZXMNCmBgYHtyfQ0KaWYgKCFyZXF1aXJlKCJCaW9jTWFuYWdlciIsIHF1aWV0bHkgPSBUUlVFKSkNCiAgICBpbnN0YWxsLnBhY2thZ2VzKCJCaW9jTWFuYWdlciIpDQoNCkJpb2NNYW5hZ2VyOjppbnN0YWxsKCJtc2EiKQ0KbGlicmFyeShtc2EpDQpsaWJyYXJ5KFJDb2xvckJyZXdlcikNCmxpYnJhcnkocmVudHJleikNCmxpYnJhcnkoc3RyaW5nZGlzdCkNCmxpYnJhcnkoc2VxaW5yKQ0KYGBgDQoNCiMgMCBHZXR0aW5nIGRhdGEgZnJvbSBOQ0JJDQoqIEdvIHRvIFtOQ0JJIG51Y2xlb3RpZGUgZGF0YWJhc2VdKGh0dHBzOi8vd3d3Lm5jYmkubmxtLm5paC5nb3YvbnVjY29yZSkNCiogU2VhcmNoIGZvciBtb25rZXlwb3gNCiogR2VuQmFuayBJRCBpcyBPTjU2MzQxNC4yDQogICogUmVsYXRpdmVseSBsb25nIGF0IDE5NzEyNCBicA0KKiBTaG91bGQgY29tcGFyZSBhbiAob2xkZXIpIGFubm90YXRlZCBnZW5vbWUgd2l0aCBvbmUgb2YgdGhlc2UgbmV3ZXIgZ2Vub21lcy4gDQoqIERhbm55IGhhcyBraW5kbHkgcHV0IGEgLnR4dCBmaWxlIGNvbnRhaW5pbmcgaW5mb3JtYXRpb24gb24gdmFyaW91cyBtb25rZXlwb3hlcyBhbmQgcmVsYXRlZCB2aXJ1c2VzLg0KICAqIEJhc2VkIG9uIHNldCBmcm9tIHZpcm9sb2d5LmNvbS4NCiAgDQojIDEgTG9hZCBnZW5vbWUgc2VxdWVuY2VzDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1vbmtleSBQb3ggR2VuZXRpY3MgTWF5IDIwMjIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KIyBJbnRyb2R1Y3Rpb24NCltZb3VUdWJlIHR1dG9yaWFsXShodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXFoTFNmeF93cGVBKSB1cGxvYWRlZCBieSBbRHIuIERhbm55IEFyZW5kc10oaHR0cHM6Ly9kYW5ueWFyZW5kcy5ubC8/KS4NCg0KTm90ZWJvb2sgY29tcGxldGVkIGJ5IFNhbWFudGhhIE1hcnRlbGwNCg0KT3BlbmVkOiAyOSBNYXkgMjAyMg0KDQpGaW5hbCBlZGl0OiANCg0KIyMgVG8tZG8gbGlzdA0KMS4gV2hlcmUgZG8gd2UgZ2V0IG91ciBkYXRhIGZyb20/IChlLmcuIFVTQSwgUG9ydHVnYWwsIEJlbGdpdW0pLiBTb3VyY2UgZnJvbSBOQ0JJLiANCjIuIExvYWQgZ2Vub21lIHNlcXVlbmNlcyBmcm9tIGZhc3RhIGFuZCBOQ0JJLg0KMy4gQ3JlYXRlIGEgYmxhc3QgZGF0YWJhc2UuDQo0LiBMb2FkIGFzc29jaWF0ZWQgcHJvdGVpbnMgZnJvbSBOQ0JJLg0KNS4gQ3JlYXRlIGEgcHJvdGVpbiBtb2RlbCAoTGV2ZW5zdGVpbiwgTVNBKSAtPiBjb25zZW5zdXMuDQo2LiB0Ymxhc3RuIENvbnNlbnN1cyB0byB2aXJhbCBnZW5vbWVzIGRhdGFiYXNlLg0KNy4gR2Vub21pYyBsYXlvdXQgb2YgdGhlIHZpcnVzLg0KDQojIyMgV2hhdCBpcyBhIGNvbnNlbnN1cyBzZXF1ZW5jZT8NCkEgY29uc2Vuc3VzIHNlcXVlbmNlIGlzIGEgc2VxdWVuY2Ugb2YgRE5BLCBSTkEsIG9yIHByb3RlaW4gdGhhdCByZXByZXNlbnRzIGFsaWduZWQsIHJlbGF0ZWQgc2VxdWVuY2VzLiBUaGUgY29uc2Vuc3VzIHNlcXVlbmNlIG9mIHRoZSByZWxhdGVkIHNlcXVlbmNlcyBjYW4gYmUgZGVmaW5lZCBpbiBkaWZmZXJlbnQgd2F5cywgYnV0IGlzIG5vcm1hbGx5IGRlZmluZWQgYnkgdGhlIG1vc3QgY29tbW9uIG51Y2xlb3RpZGUocykgb3IgYW1pbm8gYWNpZCByZXNpZHVlKHMpIGF0IGVhY2ggcG9zaXRpb24gKFtzb3VyY2VdKGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0NvbnNlbnN1c19zZXF1ZW5jZSkpLg0KDQojIEluaXRpYWxpc2luZyB0aGUgbm90ZWJvb2sgey50YWJzZXR9DQojIyBTZXQgd29ya2luZyBkaXJlY3RvcnkNCmBgYHtyfQ0KIyBzZXQgd29ya2luZyBkaXJlY3RvcnkNCnNldHdkKCJDOi9Vc2Vycy9zYW1tYS9Nb25rZXlwb3gtZ2VuZXRpY3MvIikNCmNhdChnZXR3ZCgpKQ0KbGlzdC5maWxlcygpDQpgYGANCiMjIEluc3RhbGwgcGFja2FnZXMNCiogSW5zdGFsbCBwYWNrYWdlcyBhcyByZXF1aXJlZC4gDQogICogW011bHRpcGxlIFNlcXVlbmNlIEFsaWdubWVudF0oaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzL3JlbGVhc2UvYmlvYy9odG1sL21zYS5odG1sKQ0KYGBge3J9DQppZiAoIXJlcXVpcmUoIkJpb2NNYW5hZ2VyIiwgcXVpZXRseSA9IFRSVUUpKQ0KICAgIGluc3RhbGwucGFja2FnZXMoIkJpb2NNYW5hZ2VyIikNCg0KQmlvY01hbmFnZXI6Omluc3RhbGwoIm1zYSIpDQpgYGANCg0KDQojIyBJbXBvcnRpbmcgcGFja2FnZXMNCmBgYHtyfQ0KaWYgKCFyZXF1aXJlKCJCaW9jTWFuYWdlciIsIHF1aWV0bHkgPSBUUlVFKSkNCiAgICBpbnN0YWxsLnBhY2thZ2VzKCJCaW9jTWFuYWdlciIpDQoNCkJpb2NNYW5hZ2VyOjppbnN0YWxsKCJtc2EiKQ0KbGlicmFyeShtc2EpDQpsaWJyYXJ5KFJDb2xvckJyZXdlcikNCmxpYnJhcnkocmVudHJleikNCmxpYnJhcnkoc3RyaW5nZGlzdCkNCmxpYnJhcnkoc2VxaW5yKQ0KYGBgDQoNCiMgMCBHZXR0aW5nIGRhdGEgZnJvbSBOQ0JJDQoqIEdvIHRvIFtOQ0JJIG51Y2xlb3RpZGUgZGF0YWJhc2VdKGh0dHBzOi8vd3d3Lm5jYmkubmxtLm5paC5nb3YvbnVjY29yZSkNCiogU2VhcmNoIGZvciBtb25rZXlwb3gNCiogR2VuQmFuayBJRCBpcyBPTjU2MzQxNC4yDQogICogUmVsYXRpdmVseSBsb25nIGF0IDE5NzEyNCBicA0KKiBTaG91bGQgY29tcGFyZSBhbiAob2xkZXIpIGFubm90YXRlZCBnZW5vbWUgd2l0aCBvbmUgb2YgdGhlc2UgbmV3ZXIgZ2Vub21lcy4gDQoqIERhbm55IGhhcyBraW5kbHkgcHV0IGEgLnR4dCBmaWxlIGNvbnRhaW5pbmcgaW5mb3JtYXRpb24gb24gdmFyaW91cyBtb25rZXlwb3hlcyBhbmQgcmVsYXRlZCB2aXJ1c2VzLg0KICAqIEJhc2VkIG9uIHNldCBmcm9tIHZpcm9sb2d5LmNvbS4NCiAgDQpgYGB7cn0NCiMgZ2V0d2QoKQ0Kc291cmNlSURzIDwtIHJlYWQuY3N2KGZpbGUgPSAiQzovVXNlcnMvc2FtbWEvTW9ua2V5cG94LWdlbmV0aWNzL2RhdGEvbW9ua2V5cG94X2Fubm90YXRpb24udHh0Iiwgc2VwID0gIlx0IiwgaGVhZGVyID0gVFJVRSwgcm93Lm5hbWVzID0gMSkNCg0KIyBjaGVjayB0aGUgZGF0YWZyYW1lDQpoZWFkKHNvdXJjZUlEcykNCmBgYA0KQ2hlY2sgdGhlIHN0cnVjdHVyZSBvZiB0aGUgbmV3IGRhdGFmcmFtZS4gDQpgYGB7cn0NCnN0cihzb3VyY2VJRHMpDQpgYGANCg0KICANCiMgMSBMb2FkIGdlbm9tZSBzZXF1ZW5jZXMNCg==</div>
 
 
 

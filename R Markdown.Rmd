@@ -27,8 +27,9 @@ A consensus sequence is a sequence of DNA, RNA, or protein that represents align
 ## Set working directory
 ```{r}
 # set working directory
-setwd("C:/Users/samma/Monkeypox-genetics")
+setwd("C:/Users/samma/Monkeypox-genetics/")
 cat(getwd())
+list.files()
 ```
 ## Install packages
 * Install packages as required. 
@@ -62,5 +63,18 @@ library(seqinr)
 * Should compare an (older) annotated genome with one of these newer genomes. 
 * Danny has kindly put a .txt file containing information on various monkeypoxes and related viruses.
   * Based on set from virology.com.
+  
+```{r}
+# getwd()
+sourceIDs <- read.csv(file = "C:/Users/samma/Monkeypox-genetics/data/monkeypox_annotation.txt", sep = "\t", header = TRUE, row.names = 1)
+
+# check the dataframe
+head(sourceIDs)
+```
+Check the structure of the new dataframe. 
+```{r}
+str(sourceIDs)
+```
+
   
 # 1 Load genome sequences
