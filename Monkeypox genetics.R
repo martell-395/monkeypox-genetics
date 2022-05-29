@@ -9,3 +9,10 @@
 
 # set working directory
 setwd("C:/Users/samma/Monkeypox-genetics")
+
+# Packages for today
+library(msa)
+library(RColorBrewer)
+library(rentrez)
+library(stringdist)
+library(seqinr)
