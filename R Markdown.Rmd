@@ -12,13 +12,16 @@ Opened: 29 May 2022
 Final edit: 
 
 ## To-do list
-1. Where do we get our data from? (e.g. USA, Portugal, Belgium)
-2. Load genome sequences from fasta and NCBI
-3. Create a blast database
-4. Load associated proteins from NCBI
-5. Create a protein model (Levenstein, MSA) -> consensus
-6. tblastn Consensus to viral genomes database
-7. Genomic layout of the virus
+1. Where do we get our data from? (e.g. USA, Portugal, Belgium). Source from NCBI. 
+2. Load genome sequences from fasta and NCBI.
+3. Create a blast database.
+4. Load associated proteins from NCBI.
+5. Create a protein model (Levenstein, MSA) -> consensus.
+6. tblastn Consensus to viral genomes database.
+7. Genomic layout of the virus.
+
+### What is a consensus sequence?
+A consensus sequence is a sequence of DNA, RNA, or protein that represents aligned, related sequences. The consensus sequence of the related sequences can be defined in different ways, but is normally defined by the most common nucleotide(s) or amino acid residue(s) at each position ([source](https://en.wikipedia.org/wiki/Consensus_sequence)).
 
 # Initialising the notebook {.tabset}
 ## Set working directory
@@ -51,13 +54,8 @@ library(stringdist)
 library(seqinr)
 ```
 
-# Testing
+# 0 Getting data from NCBI
+* Go to [NCBI nucleotide database](https://www.ncbi.nlm.nih.gov/nuccore)
 ```{r}
-plot(cars)
-```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
