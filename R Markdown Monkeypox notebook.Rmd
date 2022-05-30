@@ -174,12 +174,14 @@ length(ncbi.seq)
 write.csv(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/ncbi_seq.csv")
 ```
 
-
 # 2 Creating a blast database
+Write to a file so no need to continuously access from NCBI
 ```{r}
-db <- ""
+db <- "C:/Users/samma/Monkeypox-genetics/data/DNAdb.fsa"
+cat("", file = db)
 for (header in names(ncbi.seq)){
-  cat
+  cat(header, "\n", file = db, append = TRUE)
+  cat(ncbi.seq[header], "\n", file = db, append = TRUE)
 }
 ```
 
