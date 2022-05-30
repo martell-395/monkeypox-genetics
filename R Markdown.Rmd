@@ -44,10 +44,6 @@ BiocManager::install("msa")
 
 ## Importing packages
 ```{r}
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("msa")
 library(msa)
 library(RColorBrewer)
 library(rentrez)
@@ -78,3 +74,43 @@ str(sourceIDs)
 
   
 # 1 Load genome sequences
+```{r}
+rseq <- entrez_fetch("nucleotide", rownames(sourceIDs)[1], rettype = "fasta")
+```
+
+Check the data.
+```{r}
+cat(class(rseq), "\n\n")
+cat(str(rseq), "\n\n")
+```
+Make the output readable using strsplit() and unlist():
+```{r}
+cat(class(strsplit(rseq, "\n")), "\n")
+cat(class(unlist(strsplit(rseq, "\n"))))
+```
+
+Use [`grep`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/grep) function to find the header row.
+```{r}
+rseq <- entrez_fetch("nucleotide", rownames(sourceIDs)[1:3], rettype = "fasta")
+rseq <- unlist(strsplit(rseq, "\n"))
+header.lines <- grep(">", rseq)
+header.lines
+```
+* This tells us the first sequence starts on row 2, the second sequence starts on row 2821, the third sequence starts on row 5639.
+
+Make a new dataframe containing all the relevant positions:
+```{r}
+seq.pos <- cbind(
+  start = header.lines + 1, # calls all the start positions
+  stop = c(header.lines[-1] - 1, length(rseq)) # calls all the end positions + the final entry in header.lines
+)
+seq.pos
+```
+
+
+```{r}
+seq.fasta <- apply(seq.pos, 1, function(x){
+  cat(as.numeric(x["start"]))
+})
+``q`
+
