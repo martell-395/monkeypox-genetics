@@ -171,10 +171,16 @@ length(ncbi.seq)
 ```
 
 ```{r}
-write.csv(ncbi.seq, "C:\\Users\\samma\\Monkeypox-genetics\\data\\ncbi_seq.csv")
+write.csv(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/ncbi_seq.csv")
 ```
 
 
-# Creating a blast database
+# 2 Creating a blast database
+```{r}
+db <- ""
+for (header in names(ncbi.seq)){
+  cat
+}
+```
 
 
