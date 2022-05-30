@@ -101,7 +101,9 @@ rseq <- unlist(strsplit(rseq, "\n"))
 header.lines <- grep(">", rseq)
 header.lines
 ```
+
 * This tells us the first sequence starts on row 2, the second sequence starts on row 2821, the third sequence starts on row 5639.
+
 
 Make a new dataframe containing all the relevant positions:
 ```{r}
@@ -114,8 +116,17 @@ seq.pos
 
 
 ```{r}
+# apply to every row in seq.pos function (x) (to be defined...) and store in seq.fasta
 seq.fasta <- apply(seq.pos, 1, function(x){
-  cat(as.numeric(x["start"]))
+  # debug cat statement
+  # cat(as.numeric(x["start"]), " ", as.numeric(x["stop"]), "\n")
+  paste0(rseq[seq(as.numeric(x["start"]), as.numeric(x["stop"]))], sep = "", collapse = "")
 })
-``q`
+```
+
+Use `lapply` to check the number of characters in our sequences
+```{r}
+lapply(seq.fasta, nchar)
+```
+
 
