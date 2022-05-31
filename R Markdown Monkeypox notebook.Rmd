@@ -144,8 +144,8 @@ names(seq.fasta)
 
 ## Create a function to quickly process data
 ```{r}
-load.genomes <- function(ids){
-  rseq <- entrez_fetch("nucleotide", ids, rettype = "fasta")
+download.data <- function(ids, db = "nucleotide"){
+  rseq <- entrez_fetch(db, ids, rettype = "fasta")
   rseq <- unlist(strsplit(rseq, "\n"))
   
   header.lines <- grep(">", rseq)
@@ -211,9 +211,45 @@ str(seq)
 
 
 # 3 Load associated proteins from NCBI
+This code finds the proteins in the protein database which are annotated to the [NC_003310.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_003310.1/) sequence. 
 ```{r}
-entrez_link(dbfrom = "nuccore", id = )
+links <- entrez_link(dbfrom = "nuccore", id = "NC_003310.1", db = "protein")
 ```
 
+```{r}
+links
+str(links)
+```
+`cd` describes a coding sequence. Doesn't matter which of the `List of 2` we take.
 
+```{r}
+proteins.ids <- links$links$nuccore_protein
 
+proteins.ids
+length(proteins.ids)
+```
+This list only has 191 entries because the sequence is annotated. If this were to be repeated with an unannotated sequence, the list size would be 0.
+
+```{r}
+
+query.proteins <- function(id = "NC_003310.1"){
+  links <- entrez_link(dbfrom = "nuccore", id = id, db = "protein")
+  protein.ids <- links$links$nuccore_protein
+  
+  if(length(protein.ids) > 0){
+    protein.seq <- download.data(protein.ids, "protein")
+    return(protein.seq)
+  }
+  return(NULL)
+}
+```
+
+```{r}
+my.proteins <- query.proteins()
+```
+
+```{r}
+str(my.proteins)
+```
+
+50:15
