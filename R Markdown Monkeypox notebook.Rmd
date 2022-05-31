@@ -168,21 +168,52 @@ ncbi.seq <- load.genomes(rownames(sourceIDs))
 ```{r}
 class(ncbi.seq)
 length(ncbi.seq)
-```
-
-```{r}
-write.csv(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/ncbi_seq.csv")
+str(ncbi.seq)
 ```
 
 # 2 Creating a blast database
 Write to a file so no need to continuously access from NCBI
 ```{r}
-db <- "C:/Users/samma/Monkeypox-genetics/data/DNAdb.fsa"
-cat("", file = db)
-for (header in names(ncbi.seq)){
-  cat(header, "\n", file = db, append = TRUE)
-  cat(ncbi.seq[header], "\n", file = db, append = TRUE)
+make.blast.db <- function (sequences, filename){
+  db <- filename
+  cat("", file = db)
+  for (header in names(sequences)){
+    cat(header, "\n", file = db, append = TRUE)
+    cat(sequences[header], "\n", file = db, append = TRUE)
+  }
+  return(db)
 }
 ```
+
+```{r}
+make.blast.db(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/DNAdb.fsa")
+```
+
+## Writing to a file - Sam Edition
+Alternatively, write to .csv file since I can't get Danny's file to read back in nicely. 
+```{r}
+write.csv(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/ncbi_seq_2.csv")
+```
+
+Test the new file.
+```{r}
+db.test <- read.delim("C:/Users/samma/Monkeypox-genetics/data/ncbi_seq.csv", sep = ",", header = TRUE)
+```
+
+```{r}
+colnames(db.test) <- c("names", "seq")    # rename columns
+seq <- unlist(list(db.test["seq"]))       # convert to list and unlist to return a vector
+names <- unlist(list(db.test["names"]))   # convert to list and unlist to return a vector
+names(seq) <- names                       # assign names to sequences
+
+str(seq)
+```
+
+
+# 3 Load associated proteins from NCBI
+```{r}
+entrez_link(dbfrom = "nuccore", id = )
+```
+
 
 
