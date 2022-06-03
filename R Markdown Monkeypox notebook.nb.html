@@ -1980,8 +1980,8 @@ makeBlastDB(ncbi.seq, &quot;data/DNAdb.fsa&quot;)</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<div id="writing-to-a-file---sam-edition" class="section level2">
-<h2>Writing to a file - Sam Edition</h2>
+<div id="writing-to-a-file" class="section level2">
+<h2>Writing to a file</h2>
 <p>Alternatively, write to .csv file since I can’t get the. fsa file to
 read back in nicely.</p>
 <!-- rnb-text-end -->
@@ -2020,107 +2020,13 @@ annotated to the <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_003310.1/">NC_
 sequence.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlua3MgPC0gZW50cmV6X2xpbmsoZGJmcm9tID0gXCJudWNjb3JlXCIsIGlkID0gXCJOQ18wMDMzMTAuMVwiLCBkYiA9IFwicHJvdGVpblwiKVxuYGBgIn0= -->
-<pre class="r"><code>links &lt;- entrez_link(dbfrom = &quot;nuccore&quot;, id = &quot;NC_003310.1&quot;, db = &quot;protein&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiUi9xdWVyeVByb3RlaW5zLlJcIilcbm15LnByb3RlaW5zIDwtIHF1ZXJ5UHJvdGVpbnMoKVxuYGBgIn0= -->
+<pre class="r"><code>source(&quot;R/queryProteins.R&quot;)
+my.proteins &lt;- queryProteins()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlua3NcbmBgYCJ9 -->
-<pre class="r"><code>links</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiZWxpbmsgb2JqZWN0IHdpdGggY29udGVudHM6XG4gJGxpbmtzOiBJRHMgZm9yIGxpbmtlZCByZWNvcmRzIGZyb20gTkNCSVxuIFxuIn0= -->
-<pre><code>elink object with contents:
- $links: IDs for linked records from NCBI
- </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiVGhpcyBsaXN0IGhhcyAxOTEgZW50cmllcy4gXG4ifQ== -->
+<pre><code>This list has 191 entries. </code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGxpbmtzKVxuYGBgIn0= -->
-<pre class="r"><code>str(links)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTGlzdCBvZiAyXG4gJCBsaW5rczpMaXN0IG9mIDJcbiAgLi4kIG51Y2NvcmVfcHJvdGVpbiAgICA6IGNociBbMToxOTFdIFwiMTc5NzUxMDRcIiBcIjE3OTc1MTAzXCIgXCIxNzk3NTEwMlwiIFwiMTc5NzUxMDFcIiAuLi5cbiAgLi4kIG51Y2NvcmVfcHJvdGVpbl9jZHM6IGNociBbMToxOTFdIFwiMTc5NzUxMDRcIiBcIjE3OTc1MTAzXCIgXCIxNzk3NTEwMlwiIFwiMTc5NzUxMDFcIiAuLi5cbiAgLi4tIGF0dHIoKiwgXCJjbGFzc1wiKT0gY2hyIFsxOjJdIFwiZWxpbmtfY2xhc3NpY1wiIFwibGlzdFwiXG4gJCBmaWxlIDpDbGFzc2VzICdYTUxJbnRlcm5hbEVsZW1lbnROb2RlJywgJ1hNTEludGVybmFsTm9kZScsICdYTUxBYnN0cmFjdE5vZGUnIDxleHRlcm5hbHB0cj4gXG4gLSBhdHRyKCosIFwiY29udGVudFwiKT0gY2hyIFwiICRsaW5rczogSURzIGZvciBsaW5rZWQgcmVjb3JkcyBmcm9tIE5DQklcXG4gXCJcbiAtIGF0dHIoKiwgXCJjbGFzc1wiKT0gY2hyIFsxOjJdIFwiZWxpbmtcIiBcImxpc3RcIlxuIn0= -->
-<pre><code>List of 2
- $ links:List of 2
-  ..$ nuccore_protein    : chr [1:191] &quot;17975104&quot; &quot;17975103&quot; &quot;17975102&quot; &quot;17975101&quot; ...
-  ..$ nuccore_protein_cds: chr [1:191] &quot;17975104&quot; &quot;17975103&quot; &quot;17975102&quot; &quot;17975101&quot; ...
-  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;elink_classic&quot; &quot;list&quot;
- $ file :Classes &#39;XMLInternalElementNode&#39;, &#39;XMLInternalNode&#39;, &#39;XMLAbstractNode&#39; &lt;externalptr&gt; 
- - attr(*, &quot;content&quot;)= chr &quot; $links: IDs for linked records from NCBI\n &quot;
- - attr(*, &quot;class&quot;)= chr [1:2] &quot;elink&quot; &quot;list&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p><code>cd</code> describes a coding sequence. Doesn’t matter which of
-the <code>List of 2</code> we take.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvdGVpbnMuaWRzIDwtIGxpbmtzJGxpbmtzJG51Y2NvcmVfcHJvdGVpblxuXG5wcm90ZWlucy5pZHNcbmBgYCJ9 -->
-<pre class="r"><code>proteins.ids &lt;- links$links$nuccore_protein
-
-proteins.ids</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gXCIxNzk3NTEwNFwiIFwiMTc5NzUxMDNcIiBcIjE3OTc1MTAyXCIgXCIxNzk3NTEwMVwiIFwiMTc5NzUxMDBcIiBcIjE3OTc1MDk5XCIgXCIxNzk3NTA5OFwiIFwiMTc5NzUwOTdcIiBcIjE3OTc1MDk2XCJcbiBbMTBdIFwiMTc5NzUwOTVcIiBcIjE3OTc1MDk0XCIgXCIxNzk3NTA5M1wiIFwiMTc5NzUwOTJcIiBcIjE3OTc1MDkxXCIgXCIxNzk3NTA5MFwiIFwiMTc5NzUwODlcIiBcIjE3OTc1MDg4XCIgXCIxNzk3NTA4N1wiXG4gWzE5XSBcIjE3OTc1MDg2XCIgXCIxNzk3NTA4NVwiIFwiMTc5NzUwODRcIiBcIjE3OTc1MDgzXCIgXCIxNzk3NTA4MlwiIFwiMTc5NzUwODFcIiBcIjE3OTc1MDgwXCIgXCIxNzk3NTA3OVwiIFwiMTc5NzUwNzhcIlxuIFsyOF0gXCIxNzk3NTA3N1wiIFwiMTc5NzUwNzZcIiBcIjE3OTc1MDc1XCIgXCIxNzk3NTA3NFwiIFwiMTc5NzUwNzNcIiBcIjE3OTc1MDcyXCIgXCIxNzk3NTA3MVwiIFwiMTc5NzUwNzBcIiBcIjE3OTc1MDY5XCJcbiBbMzddIFwiMTc5NzUwNjhcIiBcIjE3OTc1MDY3XCIgXCIxNzk3NTA2NlwiIFwiMTc5NzUwNjVcIiBcIjE3OTc1MDY0XCIgXCIxNzk3NTA2M1wiIFwiMTc5NzUwNjJcIiBcIjE3OTc1MDYxXCIgXCIxNzk3NTA2MFwiXG4gWzQ2XSBcIjE3OTc1MDU5XCIgXCIxNzk3NTA1OFwiIFwiMTc5NzUwNTdcIiBcIjE3OTc1MDU2XCIgXCIxNzk3NTA1NVwiIFwiMTc5NzUwNTRcIiBcIjE3OTc1MDUzXCIgXCIxNzk3NTA1MlwiIFwiMTc5NzUwNTFcIlxuIFs1NV0gXCIxNzk3NTA1MFwiIFwiMTc5NzUwNDlcIiBcIjE3OTc1MDQ4XCIgXCIxNzk3NTA0N1wiIFwiMTc5NzUwNDZcIiBcIjE3OTc1MDQ1XCIgXCIxNzk3NTA0NFwiIFwiMTc5NzUwNDNcIiBcIjE3OTc1MDQyXCJcbiBbNjRdIFwiMTc5NzUwNDFcIiBcIjE3OTc1MDQwXCIgXCIxNzk3NTAzOVwiIFwiMTc5NzUwMzhcIiBcIjE3OTc1MDM3XCIgXCIxNzk3NTAzNlwiIFwiMTc5NzUwMzVcIiBcIjE3OTc1MDM0XCIgXCIxNzk3NTAzM1wiXG4gWzczXSBcIjE3OTc1MDMyXCIgXCIxNzk3NTAzMVwiIFwiMTc5NzUwMzBcIiBcIjE3OTc1MDI5XCIgXCIxNzk3NTAyOFwiIFwiMTc5NzUwMjdcIiBcIjE3OTc1MDI2XCIgXCIxNzk3NTAyNVwiIFwiMTc5NzUwMjRcIlxuIFs4Ml0gXCIxNzk3NTAyM1wiIFwiMTc5NzUwMjJcIiBcIjE3OTc1MDIxXCIgXCIxNzk3NTAyMFwiIFwiMTc5NzUwMTlcIiBcIjE3OTc1MDE4XCIgXCIxNzk3NTAxN1wiIFwiMTc5NzUwMTZcIiBcIjE3OTc1MDE1XCJcbiBbOTFdIFwiMTc5NzUwMTRcIiBcIjE3OTc1MDEzXCIgXCIxNzk3NTAxMlwiIFwiMTc5NzUwMTFcIiBcIjE3OTc1MDEwXCIgXCIxNzk3NTAwOVwiIFwiMTc5NzUwMDhcIiBcIjE3OTc1MDA3XCIgXCIxNzk3NTAwNlwiXG5bMTAwXSBcIjE3OTc1MDA1XCIgXCIxNzk3NTAwNFwiIFwiMTc5NzUwMDNcIiBcIjE3OTc1MDAyXCIgXCIxNzk3NTAwMVwiIFwiMTc5NzUwMDBcIiBcIjE3OTc0OTk5XCIgXCIxNzk3NDk5OFwiIFwiMTc5NzQ5OTdcIlxuWzEwOV0gXCIxNzk3NDk5NlwiIFwiMTc5NzQ5OTVcIiBcIjE3OTc0OTk0XCIgXCIxNzk3NDk5M1wiIFwiMTc5NzQ5OTJcIiBcIjE3OTc0OTkxXCIgXCIxNzk3NDk5MFwiIFwiMTc5NzQ5ODlcIiBcIjE3OTc0OTg4XCJcblsxMThdIFwiMTc5NzQ5ODdcIiBcIjE3OTc0OTg2XCIgXCIxNzk3NDk4NVwiIFwiMTc5NzQ5ODRcIiBcIjE3OTc0OTgzXCIgXCIxNzk3NDk4MlwiIFwiMTc5NzQ5ODFcIiBcIjE3OTc0OTgwXCIgXCIxNzk3NDk3OVwiXG5bMTI3XSBcIjE3OTc0OTc4XCIgXCIxNzk3NDk3N1wiIFwiMTc5NzQ5NzZcIiBcIjE3OTc0OTc1XCIgXCIxNzk3NDk3NFwiIFwiMTc5NzQ5NzNcIiBcIjE3OTc0OTcyXCIgXCIxNzk3NDk3MVwiIFwiMTc5NzQ5NzBcIlxuWzEzNl0gXCIxNzk3NDk2OVwiIFwiMTc5NzQ5NjhcIiBcIjE3OTc0OTY3XCIgXCIxNzk3NDk2NlwiIFwiMTc5NzQ5NjVcIiBcIjE3OTc0OTY0XCIgXCIxNzk3NDk2M1wiIFwiMTc5NzQ5NjJcIiBcIjE3OTc0OTYxXCJcblsxNDVdIFwiMTc5NzQ5NjBcIiBcIjE3OTc0OTU5XCIgXCIxNzk3NDk1OFwiIFwiMTc5NzQ5NTdcIiBcIjE3OTc0OTU2XCIgXCIxNzk3NDk1NVwiIFwiMTc5NzQ5NTRcIiBcIjE3OTc0OTUzXCIgXCIxNzk3NDk1MlwiXG5bMTU0XSBcIjE3OTc0OTUxXCIgXCIxNzk3NDk1MFwiIFwiMTc5NzQ5NDlcIiBcIjE3OTc0OTQ4XCIgXCIxNzk3NDk0N1wiIFwiMTc5NzQ5NDZcIiBcIjE3OTc0OTQ1XCIgXCIxNzk3NDk0NFwiIFwiMTc5NzQ5NDNcIlxuWzE2M10gXCIxNzk3NDk0MlwiIFwiMTc5NzQ5NDFcIiBcIjE3OTc0OTQwXCIgXCIxNzk3NDkzOVwiIFwiMTc5NzQ5MzhcIiBcIjE3OTc0OTM3XCIgXCIxNzk3NDkzNlwiIFwiMTc5NzQ5MzVcIiBcIjE3OTc0OTM0XCJcblsxNzJdIFwiMTc5NzQ5MzNcIiBcIjE3OTc0OTMyXCIgXCIxNzk3NDkzMVwiIFwiMTc5NzQ5MzBcIiBcIjE3OTc0OTI5XCIgXCIxNzk3NDkyOFwiIFwiMTc5NzQ5MjdcIiBcIjE3OTc0OTI2XCIgXCIxNzk3NDkyNVwiXG5bMTgxXSBcIjE3OTc0OTI0XCIgXCIxNzk3NDkyM1wiIFwiMTc5NzQ5MjJcIiBcIjE3OTc0OTIxXCIgXCIxNzk3NDkyMFwiIFwiMTc5NzQ5MTlcIiBcIjE3OTc0OTE4XCIgXCIxNzk3NDkxN1wiIFwiMTc5NzQ5MTZcIlxuWzE5MF0gXCIxNzk3NDkxNVwiIFwiMTc5NzQ5MTRcIlxuIn0= -->
-<pre><code>  [1] &quot;17975104&quot; &quot;17975103&quot; &quot;17975102&quot; &quot;17975101&quot; &quot;17975100&quot; &quot;17975099&quot; &quot;17975098&quot; &quot;17975097&quot; &quot;17975096&quot;
- [10] &quot;17975095&quot; &quot;17975094&quot; &quot;17975093&quot; &quot;17975092&quot; &quot;17975091&quot; &quot;17975090&quot; &quot;17975089&quot; &quot;17975088&quot; &quot;17975087&quot;
- [19] &quot;17975086&quot; &quot;17975085&quot; &quot;17975084&quot; &quot;17975083&quot; &quot;17975082&quot; &quot;17975081&quot; &quot;17975080&quot; &quot;17975079&quot; &quot;17975078&quot;
- [28] &quot;17975077&quot; &quot;17975076&quot; &quot;17975075&quot; &quot;17975074&quot; &quot;17975073&quot; &quot;17975072&quot; &quot;17975071&quot; &quot;17975070&quot; &quot;17975069&quot;
- [37] &quot;17975068&quot; &quot;17975067&quot; &quot;17975066&quot; &quot;17975065&quot; &quot;17975064&quot; &quot;17975063&quot; &quot;17975062&quot; &quot;17975061&quot; &quot;17975060&quot;
- [46] &quot;17975059&quot; &quot;17975058&quot; &quot;17975057&quot; &quot;17975056&quot; &quot;17975055&quot; &quot;17975054&quot; &quot;17975053&quot; &quot;17975052&quot; &quot;17975051&quot;
- [55] &quot;17975050&quot; &quot;17975049&quot; &quot;17975048&quot; &quot;17975047&quot; &quot;17975046&quot; &quot;17975045&quot; &quot;17975044&quot; &quot;17975043&quot; &quot;17975042&quot;
- [64] &quot;17975041&quot; &quot;17975040&quot; &quot;17975039&quot; &quot;17975038&quot; &quot;17975037&quot; &quot;17975036&quot; &quot;17975035&quot; &quot;17975034&quot; &quot;17975033&quot;
- [73] &quot;17975032&quot; &quot;17975031&quot; &quot;17975030&quot; &quot;17975029&quot; &quot;17975028&quot; &quot;17975027&quot; &quot;17975026&quot; &quot;17975025&quot; &quot;17975024&quot;
- [82] &quot;17975023&quot; &quot;17975022&quot; &quot;17975021&quot; &quot;17975020&quot; &quot;17975019&quot; &quot;17975018&quot; &quot;17975017&quot; &quot;17975016&quot; &quot;17975015&quot;
- [91] &quot;17975014&quot; &quot;17975013&quot; &quot;17975012&quot; &quot;17975011&quot; &quot;17975010&quot; &quot;17975009&quot; &quot;17975008&quot; &quot;17975007&quot; &quot;17975006&quot;
-[100] &quot;17975005&quot; &quot;17975004&quot; &quot;17975003&quot; &quot;17975002&quot; &quot;17975001&quot; &quot;17975000&quot; &quot;17974999&quot; &quot;17974998&quot; &quot;17974997&quot;
-[109] &quot;17974996&quot; &quot;17974995&quot; &quot;17974994&quot; &quot;17974993&quot; &quot;17974992&quot; &quot;17974991&quot; &quot;17974990&quot; &quot;17974989&quot; &quot;17974988&quot;
-[118] &quot;17974987&quot; &quot;17974986&quot; &quot;17974985&quot; &quot;17974984&quot; &quot;17974983&quot; &quot;17974982&quot; &quot;17974981&quot; &quot;17974980&quot; &quot;17974979&quot;
-[127] &quot;17974978&quot; &quot;17974977&quot; &quot;17974976&quot; &quot;17974975&quot; &quot;17974974&quot; &quot;17974973&quot; &quot;17974972&quot; &quot;17974971&quot; &quot;17974970&quot;
-[136] &quot;17974969&quot; &quot;17974968&quot; &quot;17974967&quot; &quot;17974966&quot; &quot;17974965&quot; &quot;17974964&quot; &quot;17974963&quot; &quot;17974962&quot; &quot;17974961&quot;
-[145] &quot;17974960&quot; &quot;17974959&quot; &quot;17974958&quot; &quot;17974957&quot; &quot;17974956&quot; &quot;17974955&quot; &quot;17974954&quot; &quot;17974953&quot; &quot;17974952&quot;
-[154] &quot;17974951&quot; &quot;17974950&quot; &quot;17974949&quot; &quot;17974948&quot; &quot;17974947&quot; &quot;17974946&quot; &quot;17974945&quot; &quot;17974944&quot; &quot;17974943&quot;
-[163] &quot;17974942&quot; &quot;17974941&quot; &quot;17974940&quot; &quot;17974939&quot; &quot;17974938&quot; &quot;17974937&quot; &quot;17974936&quot; &quot;17974935&quot; &quot;17974934&quot;
-[172] &quot;17974933&quot; &quot;17974932&quot; &quot;17974931&quot; &quot;17974930&quot; &quot;17974929&quot; &quot;17974928&quot; &quot;17974927&quot; &quot;17974926&quot; &quot;17974925&quot;
-[181] &quot;17974924&quot; &quot;17974923&quot; &quot;17974922&quot; &quot;17974921&quot; &quot;17974920&quot; &quot;17974919&quot; &quot;17974918&quot; &quot;17974917&quot; &quot;17974916&quot;
-[190] &quot;17974915&quot; &quot;17974914&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHByb3RlaW5zLmlkcylcbmBgYCJ9 -->
-<pre class="r"><code>length(proteins.ids)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE5MVxuIn0= -->
-<pre><code>[1] 191</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xhc3MocHJvdGVpbnMuaWRzKVxuYGBgIn0= -->
-<pre class="r"><code>class(proteins.ids)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiY2hhcmFjdGVyXCJcbiJ9 -->
-<pre><code>[1] &quot;character&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>This list only has 191 entries because the sequence is annotated. If
-this were to be repeated with an unannotated sequence, the list size
-would be 0.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucXVlcnkucHJvdGVpbnMgPC0gZnVuY3Rpb24oaWQgPSBcIk5DXzAwMzMxMC4xXCIpe1xuICBsaW5rcyA8LSBlbnRyZXpfbGluayhkYmZyb20gPSBcIm51Y2NvcmVcIiwgaWQgPSBpZCwgZGIgPSBcInByb3RlaW5cIilcbiAgcHJvdGVpbi5pZHMgPC0gbGlua3MkbGlua3MkbnVjY29yZV9wcm90ZWluXG4gIFxuICBpZihsZW5ndGgocHJvdGVpbi5pZHMpID4gMCl7XG4gICAgcHJvdGVpbi5zZXEgPC0gZG93bmxvYWQuZGF0YShwcm90ZWluLmlkcywgXCJwcm90ZWluXCIpXG4gICAgcmV0dXJuKHByb3RlaW4uc2VxKVxuICB9XG4gIHJldHVybihOVUxMKVxufVxuYGBgIn0= -->
-<pre class="r"><code>query.proteins &lt;- function(id = &quot;NC_003310.1&quot;){
-  links &lt;- entrez_link(dbfrom = &quot;nuccore&quot;, id = id, db = &quot;protein&quot;)
-  protein.ids &lt;- links$links$nuccore_protein
-  
-  if(length(protein.ids) &gt; 0){
-    protein.seq &lt;- download.data(protein.ids, &quot;protein&quot;)
-    return(protein.seq)
-  }
-  return(NULL)
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXkucHJvdGVpbnMgPC0gcXVlcnkucHJvdGVpbnMoKVxuYGBgIn0= -->
-<pre class="r"><code>my.proteins &lt;- query.proteins()</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -2132,35 +2038,141 @@ would be 0.</p>
 <pre><code> Named chr [1:191] &quot;MKQYIVLACMCLVAAAMPTSLQQSSSSCTEEENKHHMGIDVIIKVTKQDQTPTNDKICQSVTEVTETEDDEVSEEVVKGDPTTYYTIVGAGLNMNFGFTKCPKISSISESS&quot;| __truncated__ ...
  - attr(*, &quot;names&quot;)= chr [1:191] &quot;&gt;NP_536618.1 chemokine binding protein [Monkeypox virus Zaire-96-I-16]&quot; &quot;&gt;NP_536617.1 J2R [Monkeypox virus Zaire-96-I-16]&quot; &quot;&gt;NP_536616.1 J1R [Monkeypox virus Zaire-96-I-16]&quot; &quot;&gt;NP_536615.1 ankyrin-like protein [Monkeypox virus Zaire-96-I-16]&quot; ...</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKG15LnByb3RlaW5zKVxuYGBgIn0= -->
+<pre class="r"><code>length(my.proteins)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE5MVxuIn0= -->
+<pre><code>[1] 191</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We will query a few of these proteins - download a fraction of
 191.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvdGVpbnMgPC0gYygpXG5mb3IgKG5hbWUgaW4gbmFtZXMobmNiaS5zZXEpKXtcbiAgcHJvdGVpbnMgPC0gYyhwcm90ZWlucywgcXVlcnkucHJvdGVpbnMobmFtZSkpXG4gIFN5cy5zbGVlcCg1KVxufVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvdGVpbnMgPC0gYygpXG5mb3IgKG5hbWUgaW4gcm93Lm5hbWVzKHNvdXJjZUlEcykpe1xuICBwcm90ZWlucyA8LSBjKHByb3RlaW5zLCBxdWVyeVByb3RlaW5zKG5hbWUpKVxuICBTeXMuc2xlZXAoNSlcbn1cbmBgYCJ9 -->
 <pre class="r"><code>proteins &lt;- c()
-for (name in names(ncbi.seq)){
-  proteins &lt;- c(proteins, query.proteins(name))
+for (name in row.names(sourceIDs)){
+  proteins &lt;- c(proteins, queryProteins(name))
   Sys.sleep(5)
 }</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKHByb3RlaW5zKVxuYGBgIn0= -->
-<pre class="r"><code>str(proteins)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gc3RyKHByb3RlaW5zKSA6IG9iamVjdCAncHJvdGVpbnMnIG5vdCBmb3VuZFxuIn0= -->
-<pre><code>Error in str(proteins) : object &#39;proteins&#39; not found</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiVGhpcyBsaXN0IGhhcyAwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODEgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE3NiBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTc2IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxNDMgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE4MSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTgxIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODEgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE4MSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjEzIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODIgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE3MiBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTgxIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODEgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE4MSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMCBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTk4IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxOTggZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE3MiBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTc4IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxNzcgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE3NyBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTc3IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODUgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE5OCBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTkxIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxOTEgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE5MSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTkxIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODggZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE4OCBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTgyIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxOTEgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE5MSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTkwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxNzcgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE1MCBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTUwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxNTAgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE0OSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMTQ5IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxNTcgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDc1IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAzMjggZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDI1NiBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjEwIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAxODQgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE4MyBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjgxIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAyMjAgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDIxMyBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjEzIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAyMTkgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDIwNiBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjA3IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAyMDggZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDIzNiBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMCBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMCBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjExIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAyMDggZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDIwNSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjAyIGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAyMDEgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDAgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDE3MSBlbnRyaWVzLiBcblRoaXMgbGlzdCBoYXMgMjI0IGVudHJpZXMuIFxuVGhpcyBsaXN0IGhhcyAyOTYgZW50cmllcy4gXG5UaGlzIGxpc3QgaGFzIDMyOCBlbnRyaWVzLiBcbiJ9 -->
+<pre><code>This list has 0 entries. 
+This list has 0 entries. 
+This list has 181 entries. 
+This list has 176 entries. 
+This list has 176 entries. 
+This list has 0 entries. 
+This list has 0 entries. 
+This list has 143 entries. 
+This list has 181 entries. 
+This list has 181 entries. 
+This list has 181 entries. 
+This list has 181 entries. 
+This list has 213 entries. 
+This list has 182 entries. 
+This list has 172 entries. 
+This list has 181 entries. 
+This list has 181 entries. 
+This list has 181 entries. 
+This list has 0 entries. 
+This list has 198 entries. 
+This list has 198 entries. 
+This list has 172 entries. 
+This list has 178 entries. 
+This list has 177 entries. 
+This list has 177 entries. 
+This list has 177 entries. 
+This list has 185 entries. 
+This list has 198 entries. 
+This list has 191 entries. 
+This list has 191 entries. 
+This list has 191 entries. 
+This list has 191 entries. 
+This list has 188 entries. 
+This list has 188 entries. 
+This list has 182 entries. 
+This list has 191 entries. 
+This list has 191 entries. 
+This list has 190 entries. 
+This list has 177 entries. 
+This list has 150 entries. 
+This list has 150 entries. 
+This list has 150 entries. 
+This list has 149 entries. 
+This list has 149 entries. 
+This list has 157 entries. 
+This list has 75 entries. 
+This list has 328 entries. 
+This list has 256 entries. 
+This list has 210 entries. 
+This list has 184 entries. 
+This list has 183 entries. 
+This list has 281 entries. 
+This list has 220 entries. 
+This list has 213 entries. 
+This list has 213 entries. 
+This list has 219 entries. 
+This list has 206 entries. 
+This list has 207 entries. 
+This list has 208 entries. 
+This list has 236 entries. 
+This list has 0 entries. 
+This list has 0 entries. 
+This list has 211 entries. 
+This list has 208 entries. 
+This list has 205 entries. 
+This list has 202 entries. 
+This list has 201 entries. 
+This list has 0 entries. 
+This list has 171 entries. 
+This list has 224 entries. 
+This list has 296 entries. 
+This list has 328 entries. </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZW50cmV6X2NoZWNrKHJlc3BvbnNlKSA6IFxuICBIVFRQIGZhaWx1cmUgNDE0LCB0aGUgcmVxdWVzdCBpcyB0b28gbGFyZ2UuIEZvciBsYXJnZSByZXF1ZXN0cywgdHJ5IHVzaW5nIHdlYiBoaXN0b3J5IGFzIGRlc2NyaWJlZCBpbiB0aGUgcmVudHJleiB0dXRvcmlhbFxuIn0= -->
+<pre><code>Error in entrez_check(response) : 
+  HTTP failure 414, the request is too large. For large requests, try using web history as described in the rentrez tutorial</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHByb3RlaW5zKVxuYGBgIn0= -->
+<pre class="r"><code>length(proteins)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyMTAzXG4ifQ== -->
+<pre><code>[1] 12103</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Write to a .csv file for later use.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KHByb3RlaW5zLCBcImRhdGEvcHJvdGVpbnMuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>write.csv(proteins, &quot;data/proteins.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiUi9yZWFkQmxhc3REQmFzQ3N2LlJcIilcbmRiLnRlc3QgPC0gcmVhZEJsYXN0REJhc0NzdihcImRhdGEvcHJvdGVpbnMuY3N2XCIpXG5zdHIoZGIudGVzdClcbmBgYCJ9 -->
+<pre class="r"><code>source(&quot;R/readBlastDBasCsv.R&quot;)
+db.test &lt;- readBlastDBasCsv(&quot;data/proteins.csv&quot;)
+str(db.test)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIE5hbWVkIGNociBbMToxMjEwM10gXCJNS1FZSVZMQUNNQ0xWQUFBTVBUU0xRUVNTU1NDVEVFRU5LSEhNR0lEVklJS1ZUS1FEUVRQVE5ES0lDUVNWVEVWVEVURURERVZTRUVWVktHRFBUVFlZVElWR0FHTE5NTkZHRlRLQ1BLSVNTSVNFU1NcInwgX190cnVuY2F0ZWRfXyAuLi5cbiAtIGF0dHIoKiwgXCJuYW1lc1wiKT0gY2hyIFsxOjEyMTAzXSBcIj5RTlAxMzc4MC4xIE1QWFZncDE5MSBbTW9ua2V5cG94IHZpcnVzXVwiIFwiPlFOUDEzNzc5LjEgTVBYVmdwMTkwIFtNb25rZXlwb3ggdmlydXNdXCIgXCI+UU5QMTM3NzguMSBNUFhWZ3AxODkgW01vbmtleXBveCB2aXJ1c11cIiBcIj5RTlAxMzc3Ny4xIE1QWFZncDE4OCBbTW9ua2V5cG94IHZpcnVzXVwiIC4uLlxuIn0= -->
+<pre><code> Named chr [1:12103] &quot;MKQYIVLACMCLVAAAMPTSLQQSSSSCTEEENKHHMGIDVIIKVTKQDQTPTNDKICQSVTEVTETEDDEVSEEVVKGDPTTYYTIVGAGLNMNFGFTKCPKISSISESS&quot;| __truncated__ ...
+ - attr(*, &quot;names&quot;)= chr [1:12103] &quot;&gt;QNP13780.1 MPXVgp191 [Monkeypox virus]&quot; &quot;&gt;QNP13779.1 MPXVgp190 [Monkeypox virus]&quot; &quot;&gt;QNP13778.1 MPXVgp189 [Monkeypox virus]&quot; &quot;&gt;QNP13777.1 MPXVgp188 [Monkeypox virus]&quot; ...</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="create-a-protein-model" class="section level1">
+<h1>4 Create a protein model</h1>
+<!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1vbmtleSBQb3ggR2VuZXRpY3MgTWF5IDIwMjIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KIyBJbnRyb2R1Y3Rpb24NCltZb3VUdWJlIHR1dG9yaWFsXShodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXFoTFNmeF93cGVBKSB1cGxvYWRlZCBieSBbRHIuIERhbm55IEFyZW5kc10oaHR0cHM6Ly9kYW5ueWFyZW5kcy5ubC8/KS4NCg0KTm90ZWJvb2sgY29tcGxldGVkIGJ5IFNhbWFudGhhIE1hcnRlbGwNCg0KT3BlbmVkOiAyOSBNYXkgMjAyMg0KDQpGaW5hbCBlZGl0OiANCg0KIyMgVG8tZG8gbGlzdA0KMS4gV2hlcmUgZG8gd2UgZ2V0IG91ciBkYXRhIGZyb20/IChlLmcuIFVTQSwgUG9ydHVnYWwsIEJlbGdpdW0pLiBTb3VyY2UgZnJvbSBOQ0JJLiANCjIuIExvYWQgZ2Vub21lIHNlcXVlbmNlcyBmcm9tIGZhc3RhIGFuZCBOQ0JJLg0KMy4gQ3JlYXRlIGEgYmxhc3QgZGF0YWJhc2UuDQo0LiBMb2FkIGFzc29jaWF0ZWQgcHJvdGVpbnMgZnJvbSBOQ0JJLg0KNS4gQ3JlYXRlIGEgcHJvdGVpbiBtb2RlbCAoTGV2ZW5zdGVpbiwgTVNBKSAtPiBjb25zZW5zdXMuDQo2LiB0Ymxhc3RuIENvbnNlbnN1cyB0byB2aXJhbCBnZW5vbWVzIGRhdGFiYXNlLg0KNy4gR2Vub21pYyBsYXlvdXQgb2YgdGhlIHZpcnVzLg0KDQojIyMgV2hhdCBpcyBhIGNvbnNlbnN1cyBzZXF1ZW5jZT8NCkEgY29uc2Vuc3VzIHNlcXVlbmNlIGlzIGEgc2VxdWVuY2Ugb2YgRE5BLCBSTkEsIG9yIHByb3RlaW4gdGhhdCByZXByZXNlbnRzIGFsaWduZWQsIHJlbGF0ZWQgc2VxdWVuY2VzLiBUaGUgY29uc2Vuc3VzIHNlcXVlbmNlIG9mIHRoZSByZWxhdGVkIHNlcXVlbmNlcyBjYW4gYmUgZGVmaW5lZCBpbiBkaWZmZXJlbnQgd2F5cywgYnV0IGlzIG5vcm1hbGx5IGRlZmluZWQgYnkgdGhlIG1vc3QgY29tbW9uIG51Y2xlb3RpZGUocykgb3IgYW1pbm8gYWNpZCByZXNpZHVlKHMpIGF0IGVhY2ggcG9zaXRpb24gKFtzb3VyY2VdKGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0NvbnNlbnN1c19zZXF1ZW5jZSkpLg0KDQojIEluaXRpYWxpc2luZyB0aGUgbm90ZWJvb2sgey50YWJzZXR9DQojIyBDbGVhciBlbnZpcm9ubWVudA0KYGBge3J9DQpybShsaXN0ID0gbHMoKSkNCmBgYA0KDQojIyBTZXQgd29ya2luZyBkaXJlY3RvcnkNCmBgYHtyfQ0KIyBzZXQgd29ya2luZyBkaXJlY3RvcnkNCnNldHdkKCJDOi9Vc2Vycy9zYW1tYS9Nb25rZXlwb3gtZ2VuZXRpY3MvIikNCmNhdChnZXR3ZCgpKQ0KbGlzdC5maWxlcygpDQpgYGANCiMjIEluc3RhbGwgcGFja2FnZXMNCiogSW5zdGFsbCBwYWNrYWdlcyBhcyByZXF1aXJlZC4gDQogICogW011bHRpcGxlIFNlcXVlbmNlIEFsaWdubWVudF0oaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzL3JlbGVhc2UvYmlvYy9odG1sL21zYS5odG1sKQ0KYGBge3J9DQppZiAoIXJlcXVpcmUoIkJpb2NNYW5hZ2VyIiwgcXVpZXRseSA9IFRSVUUpKQ0KICAgIGluc3RhbGwucGFja2FnZXMoIkJpb2NNYW5hZ2VyIikNCg0KQmlvY01hbmFnZXI6Omluc3RhbGwoIm1zYSIpDQpgYGANCg0KDQojIyBJbXBvcnRpbmcgcGFja2FnZXMNCmBgYHtyfQ0KbGlicmFyeShtc2EpDQpsaWJyYXJ5KFJDb2xvckJyZXdlcikNCmxpYnJhcnkocmVudHJleikNCmxpYnJhcnkoc3RyaW5nZGlzdCkNCmxpYnJhcnkoc2VxaW5yKQ0KYGBgDQoNCiMgMCBHZXR0aW5nIGRhdGEgZnJvbSBOQ0JJDQoqIEdvIHRvIFtOQ0JJIG51Y2xlb3RpZGUgZGF0YWJhc2VdKGh0dHBzOi8vd3d3Lm5jYmkubmxtLm5paC5nb3YvbnVjY29yZSkNCiogU2VhcmNoIGZvciBtb25rZXlwb3gNCiogR2VuQmFuayBJRCBpcyBPTjU2MzQxNC4yDQogICogUmVsYXRpdmVseSBsb25nIGF0IDE5NzEyNCBicA0KKiBTaG91bGQgY29tcGFyZSBhbiAob2xkZXIpIGFubm90YXRlZCBnZW5vbWUgd2l0aCBvbmUgb2YgdGhlc2UgbmV3ZXIgZ2Vub21lcy4gDQoqIERhbm55IGhhcyBraW5kbHkgcHV0IGEgLnR4dCBmaWxlIGNvbnRhaW5pbmcgaW5mb3JtYXRpb24gb24gdmFyaW91cyBtb25rZXlwb3hlcyBhbmQgcmVsYXRlZCB2aXJ1c2VzLg0KICAqIEJhc2VkIG9uIHNldCBmcm9tIFt2aXJvbG9naWNhbC5vcmddKGh0dHBzOi8vdmlyb2xvZ2ljYWwub3JnLykuDQogIA0KYGBge3J9DQpzb3VyY2VJRHMgPC0gcmVhZC5jc3YoDQogIGZpbGUgPSAiZGF0YS9tb25rZXlwb3hfYW5ub3RhdGlvbi50eHQiLCANCiAgc2VwID0gIlx0IiwgDQogIGhlYWRlciA9IFRSVUUsIA0KICByb3cubmFtZXMgPSAxDQopDQoNCiMgY2hlY2sgdGhlIGRhdGFmcmFtZQ0KaGVhZChzb3VyY2VJRHMpDQpgYGANCkNoZWNrIHRoZSBzdHJ1Y3R1cmUgb2YgdGhlIG5ldyBkYXRhZnJhbWUuIA0KYGBge3J9DQpzdHIoc291cmNlSURzKQ0KYGBgDQoNCiAgDQojIDEgTG9hZCBnZW5vbWUgc2VxdWVuY2VzDQpVc2UgdGhlIGZ1bmN0aW9uIGRlZmluZWQgaW4gYFIvZG93bmxvYWREYXRhLlJgIHRvIGRvd25sb2FkIGRhdGEgZnJvbSB0aGUgTkNCSSBudWNsZW90aWRlIGRhdGFiYXNlIGFjY29yZGluZyB0byB0aGUgc291cmNlSURzIGdpdmVuIGluIFBhcnQgMC4NCg0KYGBge3J9DQpzb3VyY2UoIlIvZG93bmxvYWREYXRhLlIiKQ0KbmNiaS5zZXEgPC0gZG93bmxvYWREYXRhKHJvd25hbWVzKHNvdXJjZUlEcykpDQpgYGANCg0KYGBge3J9DQpjbGFzcyhuY2JpLnNlcSkNCmxlbmd0aChuY2JpLnNlcSkNCnN0cihuY2JpLnNlcSkNCmBgYA0KDQojIDIgQ3JlYXRpbmcgYSBibGFzdCBkYXRhYmFzZQ0KVXNlIHRoZSBmdW5jdGlvbiBkZWZpbmVkIGluIGBSL21ha2VCbGFzdERCLlJgIHRvIHdyaXRlIGRhdGEgZG93bmxvYWRlZCBpbiBQYXJ0IDEgdG8gYSBmaWxlIHRvIGF2b2lkIGNvbnRpbnVvdXNseSBhY2Nlc3NpbmcgZGF0YSBmcm9tIE5DQkkuIA0KDQpgYGB7cn0NCnNvdXJjZSgiUi9tYWtlQmxhc3REQi5SIikNCm1ha2VCbGFzdERCKG5jYmkuc2VxLCAiZGF0YS9ETkFkYi5mc2EiKQ0KYGBgDQoNCiMjIFdyaXRpbmcgdG8gYSBmaWxlIC0gU2FtIEVkaXRpb24NCkFsdGVybmF0aXZlbHksIHdyaXRlIHRvIC5jc3YgZmlsZSBzaW5jZSBJIGNhbid0IGdldCB0aGUuIGZzYSBmaWxlIHRvIHJlYWQgYmFjayBpbiBuaWNlbHkuIA0KYGBge3J9DQp3cml0ZS5jc3YobmNiaS5zZXEsICJkYXRhL0ROQWRiLmNzdiIpDQpgYGANCg0KVGVzdCB0aGUgbmV3IGZpbGUuDQpgYGB7cn0NCnNvdXJjZSgiUi9yZWFkQmxhc3REQmFzQ3N2LlIiKQ0KZGIudGVzdCA8LSByZWFkQmxhc3REQmFzQ3N2KCJkYXRhL0ROQWRiLmNzdiIpDQpgYGANCg0KYGBge3J9DQpzdHIoZGIudGVzdCkNCmBgYA0KDQojIDMgTG9hZCBhc3NvY2lhdGVkIHByb3RlaW5zIGZyb20gTkNCSQ0KVGhpcyBjb2RlIGZpbmRzIHRoZSBwcm90ZWlucyBpbiB0aGUgcHJvdGVpbiBkYXRhYmFzZSB3aGljaCBhcmUgYW5ub3RhdGVkIHRvIHRoZSBbTkNfMDAzMzEwLjFdKGh0dHBzOi8vd3d3Lm5jYmkubmxtLm5paC5nb3YvbnVjY29yZS9OQ18wMDMzMTAuMS8pIHNlcXVlbmNlLiANCmBgYHtyfQ0KbGlua3MgPC0gZW50cmV6X2xpbmsoZGJmcm9tID0gIm51Y2NvcmUiLCBpZCA9ICJOQ18wMDMzMTAuMSIsIGRiID0gInByb3RlaW4iKQ0KYGBgDQoNCmBgYHtyfQ0KbGlua3MNCnN0cihsaW5rcykNCmBgYA0KYGNkYCBkZXNjcmliZXMgYSBjb2Rpbmcgc2VxdWVuY2UuIERvZXNuJ3QgbWF0dGVyIHdoaWNoIG9mIHRoZSBgTGlzdCBvZiAyYCB3ZSB0YWtlLg0KDQpgYGB7cn0NCnByb3RlaW5zLmlkcyA8LSBsaW5rcyRsaW5rcyRudWNjb3JlX3Byb3RlaW4NCg0KcHJvdGVpbnMuaWRzDQpsZW5ndGgocHJvdGVpbnMuaWRzKQ0KY2xhc3MocHJvdGVpbnMuaWRzKQ0KYGBgDQoNClRoaXMgbGlzdCBvbmx5IGhhcyAxOTEgZW50cmllcyBiZWNhdXNlIHRoZSBzZXF1ZW5jZSBpcyBhbm5vdGF0ZWQuIElmIHRoaXMgd2VyZSB0byBiZSByZXBlYXRlZCB3aXRoIGFuIHVuYW5ub3RhdGVkIHNlcXVlbmNlLCB0aGUgbGlzdCBzaXplIHdvdWxkIGJlIDAuDQoNCmBgYHtyfQ0KcXVlcnkucHJvdGVpbnMgPC0gZnVuY3Rpb24oaWQgPSAiTkNfMDAzMzEwLjEiKXsNCiAgbGlua3MgPC0gZW50cmV6X2xpbmsoZGJmcm9tID0gIm51Y2NvcmUiLCBpZCA9IGlkLCBkYiA9ICJwcm90ZWluIikNCiAgcHJvdGVpbi5pZHMgPC0gbGlua3MkbGlua3MkbnVjY29yZV9wcm90ZWluDQogIA0KICBpZihsZW5ndGgocHJvdGVpbi5pZHMpID4gMCl7DQogICAgcHJvdGVpbi5zZXEgPC0gZG93bmxvYWQuZGF0YShwcm90ZWluLmlkcywgInByb3RlaW4iKQ0KICAgIHJldHVybihwcm90ZWluLnNlcSkNCiAgfQ0KICByZXR1cm4oTlVMTCkNCn0NCmBgYA0KDQpgYGB7cn0NCm15LnByb3RlaW5zIDwtIHF1ZXJ5LnByb3RlaW5zKCkNCmBgYA0KDQpgYGB7cn0NCnN0cihteS5wcm90ZWlucykNCmxlbmd0aChteS5wcm90ZWlucykNCmBgYA0KDQpXZSB3aWxsIHF1ZXJ5IGEgZmV3IG9mIHRoZXNlIHByb3RlaW5zIC0gZG93bmxvYWQgYSBmcmFjdGlvbiBvZiAxOTEuICANCmBgYHtyfQ0KcHJvdGVpbnMgPC0gYygpDQpmb3IgKG5hbWUgaW4gbmFtZXMobmNiaS5zZXEpKXsNCiAgcHJvdGVpbnMgPC0gYyhwcm90ZWlucywgcXVlcnkucHJvdGVpbnMobmFtZSkpDQogIFN5cy5zbGVlcCg1KQ0KfQ0KYGBgDQoNCmBgYHtyfQ0Kc3RyKHByb3RlaW5zKQ0KYGBgDQoNCg0KDQoNCg0KDQoNCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1vbmtleSBQb3ggR2VuZXRpY3MgTWF5IDIwMjIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KIyBJbnRyb2R1Y3Rpb24NCltZb3VUdWJlIHR1dG9yaWFsXShodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXFoTFNmeF93cGVBKSB1cGxvYWRlZCBieSBbRHIuIERhbm55IEFyZW5kc10oaHR0cHM6Ly9kYW5ueWFyZW5kcy5ubC8/KS4NCg0KTm90ZWJvb2sgY29tcGxldGVkIGJ5IFNhbWFudGhhIE1hcnRlbGwNCg0KT3BlbmVkOiAyOSBNYXkgMjAyMg0KDQpGaW5hbCBlZGl0OiANCg0KIyMgVG8tZG8gbGlzdA0KMS4gV2hlcmUgZG8gd2UgZ2V0IG91ciBkYXRhIGZyb20/IChlLmcuIFVTQSwgUG9ydHVnYWwsIEJlbGdpdW0pLiBTb3VyY2UgZnJvbSBOQ0JJLiANCjIuIExvYWQgZ2Vub21lIHNlcXVlbmNlcyBmcm9tIGZhc3RhIGFuZCBOQ0JJLg0KMy4gQ3JlYXRlIGEgYmxhc3QgZGF0YWJhc2UuDQo0LiBMb2FkIGFzc29jaWF0ZWQgcHJvdGVpbnMgZnJvbSBOQ0JJLg0KNS4gQ3JlYXRlIGEgcHJvdGVpbiBtb2RlbCAoTGV2ZW5zdGVpbiwgTVNBKSAtPiBjb25zZW5zdXMuDQo2LiB0Ymxhc3RuIENvbnNlbnN1cyB0byB2aXJhbCBnZW5vbWVzIGRhdGFiYXNlLg0KNy4gR2Vub21pYyBsYXlvdXQgb2YgdGhlIHZpcnVzLg0KDQojIyMgV2hhdCBpcyBhIGNvbnNlbnN1cyBzZXF1ZW5jZT8NCkEgY29uc2Vuc3VzIHNlcXVlbmNlIGlzIGEgc2VxdWVuY2Ugb2YgRE5BLCBSTkEsIG9yIHByb3RlaW4gdGhhdCByZXByZXNlbnRzIGFsaWduZWQsIHJlbGF0ZWQgc2VxdWVuY2VzLiBUaGUgY29uc2Vuc3VzIHNlcXVlbmNlIG9mIHRoZSByZWxhdGVkIHNlcXVlbmNlcyBjYW4gYmUgZGVmaW5lZCBpbiBkaWZmZXJlbnQgd2F5cywgYnV0IGlzIG5vcm1hbGx5IGRlZmluZWQgYnkgdGhlIG1vc3QgY29tbW9uIG51Y2xlb3RpZGUocykgb3IgYW1pbm8gYWNpZCByZXNpZHVlKHMpIGF0IGVhY2ggcG9zaXRpb24gKFtzb3VyY2VdKGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0NvbnNlbnN1c19zZXF1ZW5jZSkpLg0KDQojIEluaXRpYWxpc2luZyB0aGUgbm90ZWJvb2sgey50YWJzZXR9DQojIyBDbGVhciBlbnZpcm9ubWVudA0KYGBge3J9DQpybShsaXN0ID0gbHMoKSkNCmBgYA0KDQojIyBTZXQgd29ya2luZyBkaXJlY3RvcnkNCmBgYHtyfQ0KIyBzZXQgd29ya2luZyBkaXJlY3RvcnkNCnNldHdkKCJDOi9Vc2Vycy9zYW1tYS9Nb25rZXlwb3gtZ2VuZXRpY3MvIikNCmNhdChnZXR3ZCgpKQ0KbGlzdC5maWxlcygpDQpgYGANCiMjIEluc3RhbGwgcGFja2FnZXMNCiogSW5zdGFsbCBwYWNrYWdlcyBhcyByZXF1aXJlZC4gDQogICogW011bHRpcGxlIFNlcXVlbmNlIEFsaWdubWVudF0oaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL3BhY2thZ2VzL3JlbGVhc2UvYmlvYy9odG1sL21zYS5odG1sKQ0KYGBge3J9DQppZiAoIXJlcXVpcmUoIkJpb2NNYW5hZ2VyIiwgcXVpZXRseSA9IFRSVUUpKQ0KICAgIGluc3RhbGwucGFja2FnZXMoIkJpb2NNYW5hZ2VyIikNCg0KQmlvY01hbmFnZXI6Omluc3RhbGwoIm1zYSIpDQpgYGANCg0KDQojIyBJbXBvcnRpbmcgcGFja2FnZXMNCmBgYHtyfQ0KbGlicmFyeShtc2EpDQpsaWJyYXJ5KFJDb2xvckJyZXdlcikNCmxpYnJhcnkocmVudHJleikNCmxpYnJhcnkoc3RyaW5nZGlzdCkNCmxpYnJhcnkoc2VxaW5yKQ0KYGBgDQoNCiMgMCBHZXR0aW5nIGRhdGEgZnJvbSBOQ0JJDQoqIEdvIHRvIFtOQ0JJIG51Y2xlb3RpZGUgZGF0YWJhc2VdKGh0dHBzOi8vd3d3Lm5jYmkubmxtLm5paC5nb3YvbnVjY29yZSkNCiogU2VhcmNoIGZvciBtb25rZXlwb3gNCiogR2VuQmFuayBJRCBpcyBPTjU2MzQxNC4yDQogICogUmVsYXRpdmVseSBsb25nIGF0IDE5NzEyNCBicA0KKiBTaG91bGQgY29tcGFyZSBhbiAob2xkZXIpIGFubm90YXRlZCBnZW5vbWUgd2l0aCBvbmUgb2YgdGhlc2UgbmV3ZXIgZ2Vub21lcy4gDQoqIERhbm55IGhhcyBraW5kbHkgcHV0IGEgLnR4dCBmaWxlIGNvbnRhaW5pbmcgaW5mb3JtYXRpb24gb24gdmFyaW91cyBtb25rZXlwb3hlcyBhbmQgcmVsYXRlZCB2aXJ1c2VzLg0KICAqIEJhc2VkIG9uIHNldCBmcm9tIFt2aXJvbG9naWNhbC5vcmddKGh0dHBzOi8vdmlyb2xvZ2ljYWwub3JnLykuDQogIA0KYGBge3J9DQpzb3VyY2VJRHMgPC0gcmVhZC5jc3YoDQogIGZpbGUgPSAiZGF0YS9tb25rZXlwb3hfYW5ub3RhdGlvbi50eHQiLCANCiAgc2VwID0gIlx0IiwgDQogIGhlYWRlciA9IFRSVUUsIA0KICByb3cubmFtZXMgPSAxDQopDQoNCiMgY2hlY2sgdGhlIGRhdGFmcmFtZQ0KaGVhZChzb3VyY2VJRHMpDQpgYGANCkNoZWNrIHRoZSBzdHJ1Y3R1cmUgb2YgdGhlIG5ldyBkYXRhZnJhbWUuIA0KYGBge3J9DQpzdHIoc291cmNlSURzKQ0KYGBgDQoNCiAgDQojIDEgTG9hZCBnZW5vbWUgc2VxdWVuY2VzDQpVc2UgdGhlIGZ1bmN0aW9uIGRlZmluZWQgaW4gYFIvZG93bmxvYWREYXRhLlJgIHRvIGRvd25sb2FkIGRhdGEgZnJvbSB0aGUgTkNCSSBudWNsZW90aWRlIGRhdGFiYXNlIGFjY29yZGluZyB0byB0aGUgc291cmNlSURzIGdpdmVuIGluIFBhcnQgMC4NCg0KYGBge3J9DQpzb3VyY2UoIlIvZG93bmxvYWREYXRhLlIiKQ0KbmNiaS5zZXEgPC0gZG93bmxvYWREYXRhKHJvd25hbWVzKHNvdXJjZUlEcykpDQpgYGANCg0KYGBge3J9DQpjbGFzcyhuY2JpLnNlcSkNCmxlbmd0aChuY2JpLnNlcSkNCnN0cihuY2JpLnNlcSkNCmBgYA0KDQojIDIgQ3JlYXRpbmcgYSBibGFzdCBkYXRhYmFzZQ0KVXNlIHRoZSBmdW5jdGlvbiBkZWZpbmVkIGluIGBSL21ha2VCbGFzdERCLlJgIHRvIHdyaXRlIGRhdGEgZG93bmxvYWRlZCBpbiBQYXJ0IDEgdG8gYSBmaWxlIHRvIGF2b2lkIGNvbnRpbnVvdXNseSBhY2Nlc3NpbmcgZGF0YSBmcm9tIE5DQkkuIA0KDQpgYGB7cn0NCnNvdXJjZSgiUi9tYWtlQmxhc3REQi5SIikNCm1ha2VCbGFzdERCKG5jYmkuc2VxLCAiZGF0YS9ETkFkYi5mc2EiKQ0KYGBgDQoNCiMjIFdyaXRpbmcgdG8gYSBmaWxlDQpBbHRlcm5hdGl2ZWx5LCB3cml0ZSB0byAuY3N2IGZpbGUgc2luY2UgSSBjYW4ndCBnZXQgdGhlLiBmc2EgZmlsZSB0byByZWFkIGJhY2sgaW4gbmljZWx5LiANCmBgYHtyfQ0Kd3JpdGUuY3N2KG5jYmkuc2VxLCAiZGF0YS9ETkFkYi5jc3YiKQ0KYGBgDQoNClRlc3QgdGhlIG5ldyBmaWxlLg0KYGBge3J9DQpzb3VyY2UoIlIvcmVhZEJsYXN0REJhc0Nzdi5SIikNCmRiLnRlc3QgPC0gcmVhZEJsYXN0REJhc0NzdigiZGF0YS9ETkFkYi5jc3YiKQ0KYGBgDQoNCmBgYHtyfQ0Kc3RyKGRiLnRlc3QpDQpgYGANCg0KIyAzIExvYWQgYXNzb2NpYXRlZCBwcm90ZWlucyBmcm9tIE5DQkkNClRoaXMgY29kZSBmaW5kcyB0aGUgcHJvdGVpbnMgaW4gdGhlIHByb3RlaW4gZGF0YWJhc2Ugd2hpY2ggYXJlIGFubm90YXRlZCB0byB0aGUgW05DXzAwMzMxMC4xXShodHRwczovL3d3dy5uY2JpLm5sbS5uaWguZ292L251Y2NvcmUvTkNfMDAzMzEwLjEvKSBzZXF1ZW5jZS4gDQoNCmBgYHtyfQ0Kc291cmNlKCJSL3F1ZXJ5UHJvdGVpbnMuUiIpDQpteS5wcm90ZWlucyA8LSBxdWVyeVByb3RlaW5zKCkNCmBgYA0KDQpgYGB7cn0NCnN0cihteS5wcm90ZWlucykNCmxlbmd0aChteS5wcm90ZWlucykNCmBgYA0KDQpXZSB3aWxsIHF1ZXJ5IGEgZmV3IG9mIHRoZXNlIHByb3RlaW5zIC0gZG93bmxvYWQgYSBmcmFjdGlvbiBvZiAxOTEuICANCmBgYHtyfQ0KcHJvdGVpbnMgPC0gYygpDQpmb3IgKG5hbWUgaW4gcm93Lm5hbWVzKHNvdXJjZUlEcykpew0KICBwcm90ZWlucyA8LSBjKHByb3RlaW5zLCBxdWVyeVByb3RlaW5zKG5hbWUpKQ0KICBTeXMuc2xlZXAoNSkNCn0NCmBgYA0KDQpgYGB7cn0NCmxlbmd0aChwcm90ZWlucykNCmBgYA0KDQpXcml0ZSB0byBhIC5jc3YgZmlsZSBmb3IgbGF0ZXIgdXNlLg0KYGBge3J9DQp3cml0ZS5jc3YocHJvdGVpbnMsICJkYXRhL3Byb3RlaW5zLmNzdiIpDQpgYGANCmBgYHtyfQ0Kc291cmNlKCJSL3JlYWRCbGFzdERCYXNDc3YuUiIpDQpwcm90ZWlucyA8LSByZWFkQmxhc3REQmFzQ3N2KCJkYXRhL3Byb3RlaW5zLmNzdiIpDQpzdHIocHJvdGVpbnMpDQpgYGANCg0KIyA0IENyZWF0ZSBhIHByb3RlaW4gbW9kZWwNCg0KDQoNCg0KDQo=</div>
 
 
 

@@ -104,7 +104,7 @@ source("R/makeBlastDB.R")
 makeBlastDB(ncbi.seq, "data/DNAdb.fsa")
 ```
 
-## Writing to a file - Sam Edition
+## Writing to a file
 Alternatively, write to .csv file since I can't get the. fsa file to read back in nicely. 
 ```{r}
 write.csv(ncbi.seq, "data/DNAdb.csv")
@@ -122,41 +122,10 @@ str(db.test)
 
 # 3 Load associated proteins from NCBI
 This code finds the proteins in the protein database which are annotated to the [NC_003310.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_003310.1/) sequence. 
-```{r}
-links <- entrez_link(dbfrom = "nuccore", id = "NC_003310.1", db = "protein")
-```
 
 ```{r}
-links
-str(links)
-```
-`cd` describes a coding sequence. Doesn't matter which of the `List of 2` we take.
-
-```{r}
-proteins.ids <- links$links$nuccore_protein
-
-proteins.ids
-length(proteins.ids)
-class(proteins.ids)
-```
-
-This list only has 191 entries because the sequence is annotated. If this were to be repeated with an unannotated sequence, the list size would be 0.
-
-```{r}
-query.proteins <- function(id = "NC_003310.1"){
-  links <- entrez_link(dbfrom = "nuccore", id = id, db = "protein")
-  protein.ids <- links$links$nuccore_protein
-  
-  if(length(protein.ids) > 0){
-    protein.seq <- download.data(protein.ids, "protein")
-    return(protein.seq)
-  }
-  return(NULL)
-}
-```
-
-```{r}
-my.proteins <- query.proteins()
+source("R/queryProteins.R")
+my.proteins <- queryProteins()
 ```
 
 ```{r}
@@ -167,19 +136,27 @@ length(my.proteins)
 We will query a few of these proteins - download a fraction of 191.  
 ```{r}
 proteins <- c()
-for (name in names(ncbi.seq)){
-  proteins <- c(proteins, query.proteins(name))
+for (name in row.names(sourceIDs)){
+  proteins <- c(proteins, queryProteins(name))
   Sys.sleep(5)
 }
 ```
 
 ```{r}
+length(proteins)
+```
+
+Write to a .csv file for later use.
+```{r}
+write.csv(proteins, "data/proteins.csv")
+```
+```{r}
+source("R/readBlastDBasCsv.R")
+proteins <- readBlastDBasCsv("data/proteins.csv")
 str(proteins)
 ```
 
-
-
-
+# 4 Create a protein model
 
 
 
