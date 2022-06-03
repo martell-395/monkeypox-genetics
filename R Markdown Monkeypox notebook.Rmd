@@ -63,7 +63,7 @@ library(seqinr)
   * Relatively long at 197124 bp
 * Should compare an (older) annotated genome with one of these newer genomes. 
 * Danny has kindly put a .txt file containing information on various monkeypoxes and related viruses.
-  * Based on set from [virology.org](https://www.pascv.org/default.aspx).
+  * Based on set from [virological.org](https://virological.org/).
   
 ```{r}
 sourceIDs <- read.csv(
@@ -202,11 +202,11 @@ db.test <- read.delim("C:/Users/samma/Monkeypox-genetics/data/ncbi_seq.csv", sep
 
 ```{r}
 colnames(db.test) <- c("names", "seq")    # rename columns
-seq <- unlist(list(db.test["seq"]))       # convert to list and unlist to return a vector
+ncbi.seq <- unlist(list(db.test["seq"]))       # convert to list and unlist to return a vector
 names <- unlist(list(db.test["names"]))   # convert to list and unlist to return a vector
-names(seq) <- names                       # assign names to sequences
+names(ncbi.seq) <- names                       # assign names to sequences
 
-str(seq)
+str(ncbi.seq)
 ```
 
 
@@ -227,11 +227,12 @@ proteins.ids <- links$links$nuccore_protein
 
 proteins.ids
 length(proteins.ids)
+class(proteins.ids)
 ```
+
 This list only has 191 entries because the sequence is annotated. If this were to be repeated with an unannotated sequence, the list size would be 0.
 
 ```{r}
-
 query.proteins <- function(id = "NC_003310.1"){
   links <- entrez_link(dbfrom = "nuccore", id = id, db = "protein")
   protein.ids <- links$links$nuccore_protein
@@ -250,6 +251,27 @@ my.proteins <- query.proteins()
 
 ```{r}
 str(my.proteins)
+length(my.proteins)
 ```
 
-50:15
+We will query a few of these proteins - download a fraction of 191.  
+```{r}
+proteins <- c()
+for (name in names(ncbi.seq)){
+  proteins <- c(proteins, query.proteins(name))
+  Sys.sleep(5)
+}
+```
+
+```{r}
+str(proteins)
+```
+
+
+
+
+
+
+
+
+
