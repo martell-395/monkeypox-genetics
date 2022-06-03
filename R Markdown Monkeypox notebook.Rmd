@@ -56,7 +56,7 @@ library(stringdist)
 library(seqinr)
 ```
 
-# 0 Getting data from NCBI
+# 0. Getting data from NCBI
 * Go to [NCBI nucleotide database](https://www.ncbi.nlm.nih.gov/nuccore)
 * Search for monkeypox
 * GenBank ID is ON563414.2
@@ -82,7 +82,7 @@ str(sourceIDs)
 ```
 
   
-# 1 Load genome sequences
+# 1. Load genome sequences
 Use the function defined in `R/downloadData.R` to download data from the NCBI nucleotide database according to the sourceIDs given in Part 0.
 
 ```{r}
@@ -96,12 +96,12 @@ length(ncbi.seq)
 str(ncbi.seq)
 ```
 
-# 2 Creating a blast database
+# 2. Creating a blast database
 Use the function defined in `R/makeBlastDB.R` to write data downloaded in Part 1 to a file to avoid continuously accessing data from NCBI. 
 
 ```{r}
 source("R/makeBlastDB.R")
-makeBlastDB(ncbi.seq, "data/DNAdb.fsa")
+db <- makeBlastDB(ncbi.seq)
 ```
 
 ## Writing to a file
@@ -113,14 +113,14 @@ write.csv(ncbi.seq, "data/DNAdb.csv")
 Test the new file.
 ```{r}
 source("R/readBlastDBasCsv.R")
-db.test <- readBlastDBasCsv("data/DNAdb.csv")
+ncbi.seq <- readBlastDBasCsv("data/DNAdb.csv")
 ```
 
 ```{r}
-str(db.test)
+str(ncbi.seq)
 ```
 
-# 3 Load associated proteins from NCBI
+# 3. Load associated proteins from NCBI
 This code finds the proteins in the protein database which are annotated to the [NC_003310.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_003310.1/) sequence. 
 
 ```{r}
@@ -156,9 +156,64 @@ proteins <- readBlastDBasCsv("data/proteins.csv")
 str(proteins)
 ```
 
-# 4 Create a protein model
+# 4. Create a protein model
+## Exploring the data
+Get the names of the proteins to have a look at them. 
+```{r}
+names.proteins <- unlist(names(proteins))
+names.proteins[1:10]
+```
 
+Use `grep` to find a specific protein. 
+```{r}
+grep("Monoglyceride", names.proteins)
+length(grep("Monoglyceride", names.proteins))
+```
 
+# Levenshtein  distance
+Use the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) to see how closely proteins are related.
 
+For example, see which proteins have a Levenshtein distance of < 25. 
+```{r}
+which(stringdist(proteins[1], proteins, method = "lv") < 25)
+```
+
+Use this code to generate a subset of proteins similar to the first protein. 
+```{r}
+similar <- names(proteins[which(stringdist(proteins[1], proteins, method = "lv") < 15)])
+similar
+```
+
+Build a multiple sequence alignment.
+```{r}
+my.msa <- msa(AAStringSet(proteins[similar]))
+```
+
+Get the consensus sequence:
+```{r}
+my.consensus <- msaConsensusSequence(my.msa)
+my.consensus
+```
+
+Can use the consensus sequence to probe the monkeypox genome. 
+
+# 5. `tblastn` consensus sequence to the viral genomes DB
+```{r}
+source("R/makeBlastDB.R")
+source("R/queryProteins.R")
+source("R/readBlastDBasCsv.R")
+source("R/blast.R")
+source("R/downloadData.R")
+
+```
+
+```{r}
+source("R/blast.R")
+blast.res <- blast(my.consensus)
+positions <- c(as.numeric(blast.res[, "sstart"]), as.numeric(blast.res[, "send"]))
+
+```
+
+Next, turn `blast.res` into a matrix. 
 
 
