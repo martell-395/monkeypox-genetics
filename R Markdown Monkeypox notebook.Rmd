@@ -104,27 +104,21 @@ source("R/makeBlastDB.R")
 makeBlastDB(ncbi.seq, "data/DNAdb.fsa")
 ```
 
-
 ## Writing to a file - Sam Edition
-Alternatively, write to .csv file since I can't get Danny's file to read back in nicely. 
+Alternatively, write to .csv file since I can't get the. fsa file to read back in nicely. 
 ```{r}
-write.csv(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/ncbi_seq_2.csv")
+write.csv(ncbi.seq, "data/DNAdb.csv")
 ```
 
 Test the new file.
 ```{r}
-db.test <- read.delim("C:/Users/samma/Monkeypox-genetics/data/ncbi_seq.csv", sep = ",", header = TRUE)
+source("R/readBlastDBasCsv.R")
+db.test <- readBlastDBasCsv("data/DNAdb.csv")
 ```
 
 ```{r}
-colnames(db.test) <- c("names", "seq")    # rename columns
-ncbi.seq <- unlist(list(db.test["seq"]))       # convert to list and unlist to return a vector
-names <- unlist(list(db.test["names"]))   # convert to list and unlist to return a vector
-names(ncbi.seq) <- names                       # assign names to sequences
-
-str(ncbi.seq)
+str(db.test)
 ```
-
 
 # 3 Load associated proteins from NCBI
 This code finds the proteins in the protein database which are annotated to the [NC_003310.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_003310.1/) sequence. 
