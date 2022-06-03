@@ -97,22 +97,13 @@ str(ncbi.seq)
 ```
 
 # 2 Creating a blast database
-Write to a file so no need to continuously access from NCBI
-```{r}
-make.blast.db <- function (sequences, filename){
-  db <- filename
-  cat("", file = db)
-  for (header in names(sequences)){
-    cat(header, "\n", file = db, append = TRUE)
-    cat(sequences[header], "\n", file = db, append = TRUE)
-  }
-  return(db)
-}
-```
+Use the function defined in `R/makeBlastDB.R` to write data downloaded in Part 1 to a file to avoid continuously accessing data from NCBI. 
 
 ```{r}
-make.blast.db(ncbi.seq, "C:/Users/samma/Monkeypox-genetics/data/DNAdb.fsa")
+source("R/makeBlastDB.R")
+makeBlastDB(ncbi.seq, "data/DNAdb.fsa")
 ```
+
 
 ## Writing to a file - Sam Edition
 Alternatively, write to .csv file since I can't get Danny's file to read back in nicely. 
