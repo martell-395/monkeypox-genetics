@@ -1,3 +1,9 @@
+# Notebook completed by Samantha Martell
+# First modified: 03 Jun 2022
+# Last modified: 03 Jun 2022
+# [YouTube tutorial](https://www.youtube.com/watch?v=qhLSfx_wpeA) uploaded by [Dr. Danny Arends](https://dannyarends.nl/?).
+# copyright (c) 2022 - Samantha Martell
+
 downloadData <- function(ids, db = "nucleotide"){
   rseq <- entrez_fetch(db, ids, rettype = "fasta")  # returns sequences in the fasta format
   rseq <- unlist(strsplit(rseq, "\n"))              # strsplit() to split convert to a list,

@@ -3,13 +3,13 @@ title: "Monkey Pox Genetics May 2022"
 output: html_notebook
 ---
 # Introduction
-[YouTube tutorial](https://www.youtube.com/watch?v=qhLSfx_wpeA) uploaded by [Dr. Danny Arends](https://dannyarends.nl/?).
 
 Notebook completed by Samantha Martell
+First modified: 29 Apr 2022
+Last modified: 04 Jun 2022
+[YouTube tutorial](https://www.youtube.com/watch?v=qhLSfx_wpeA) uploaded by [Dr. Danny Arends](https://dannyarends.nl/?).
+copyright (c) 2022 - Samantha Martell
 
-Opened: 29 May 2022
-
-Final edit: 
 
 ## To-do list
 1. Where do we get our data from? (e.g. USA, Portugal, Belgium). Source from NCBI. 
@@ -225,6 +225,8 @@ Studying a single protein.
   
 
 ```{r}
+jpeg(file = "images/saving_plot1.jpg")
+
 colz <- brewer.pal(5, "Set2")
 
 op <- par(mar = c(10, 5, 5, 5))
@@ -234,7 +236,8 @@ plot(
   y = c(min(positions), max(positions)), 
   t = 'n', 
   xaxt = 'n', 
-  xlab = ""
+  xlab = "",
+  ylab = ""
 )
 
 for(name in rownames(sourceIDs)){
@@ -254,6 +257,8 @@ for(name in rownames(sourceIDs)){
 
 display.names <- paste0(sourceIDs[, "Country"], " ", sourceIDs[, "Year"], " ", sourceIDs[, "Sub.Type"])
 axis(1, at  = 1:nrow(sourceIDs), display.names, las = 2, cex.axis = 0.7)
+
+dev.off()
 ```
 
 

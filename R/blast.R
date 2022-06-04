@@ -1,3 +1,10 @@
+# Notebook completed by Samantha Martell
+# First modified: 03 Jun 2022
+# Last modified: 04 Jun 2022
+# [YouTube tutorial](https://www.youtube.com/watch?v=qhLSfx_wpeA) uploaded by [Dr. Danny Arends](https://dannyarends.nl/?).
+# copyright (c) 2022 - Samantha Martell
+
+
 blast <- function(sequences, tool  =  "tblastn"){
   tmpfile <- tempfile()
   cat("", file  =  tmpfile)
