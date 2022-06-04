@@ -1,31 +1,39 @@
-blast <- function(sequences, tool = "tblastn"){
+blast <- function(sequences, tool  =  "tblastn"){
   tmpfile <- tempfile()
-  cat("", file = tmpfile)
+  cat("", file  =  tmpfile)
+  
   for(name in names(sequences)){
-    cat(">",name,"\n", file = tmpfile, append=TRUE)
-    cat(gsub("-", "N", sequences[name]), "\n", file = tmpfile, append=TRUE)
+    cat(">", name, "\n", file  =  tmpfile, append = TRUE)
+    cat(gsub("-", "N", sequences[name]), "\n", file  =  tmpfile, append = TRUE)
   }
   
   outfmt <- "\"6 qseqid sseqid qstart qend slen sstart send length pident nident mismatch gapopen gaps evalue\""
-  res <- system(paste0(tool, " -db ", db, " -outfmt ", outfmt," -query ", tmpfile), intern = TRUE)
+  res <- system(paste0(tool, " -db ", db, " -outfmt ", outfmt, " -query ", tmpfile), intern  =  TRUE)
   file.remove(tmpfile)
+  
+  cat(length(res), "\n")
   
   values <- NA
   if(length(res) > 0){
     values <- unlist(lapply(res, strsplit, "\t"))
   }
-  res <- matrix(values, length(res), 14, byrow=TRUE)
-  colnames(res) <- c("qseqid","sseqid","qstart","qend","slen","sstart","send","length","pident","nident",
-                     "mismatch","gapopen","gaps","evalue")
+  res <- matrix(values, length(res), 14, byrow = TRUE)
+  colnames(res) <- c("qseqid", "sseqid", "qstart", "qend", "slen", "sstart", "send", "length", "pident", "nident", 
+                     "mismatch", "gapopen", "gaps", "evalue")
   
   res <- data.frame(res)
-  res <- res[which(as.numeric(res[, "evalue"]) < 0.01),]
   
+  # clean the data such that only entries with a low e-value are included. 
+  res <- res[which(as.numeric(res[, "evalue"]) < 0.01), ]
+  
+  # tidy up the IDs in the sseqid column
   res[, "sseqid"] <- unlist(lapply(res[, "sseqid"], function(x){
-    if(length(grep("|", unlist(strsplit(x, "")), fixed=TRUE)) ==2){
-      return(unlist(lapply(strsplit(x, "|", fixed=TRUE), "[", 2)))
+    if(length(grep("|", unlist(strsplit(x, "")), fixed = TRUE)) == 2){
+      return(unlist(lapply(strsplit(x, "|", fixed = TRUE), "[", 2)))
     }
     return(x)
+    
   }))
+  
   return(res)
 }
